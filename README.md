@@ -5,4 +5,6 @@
 
 **History: our team focus on creating a platform for users to shoot bullet comments on YouTube videos. Since it is called bullet comments, our first thought is Cowboys. However, Deadshots sounds cooler!)**
 
-https://docs.google.com/document/d/1YROqtq7iVS8Uke8m3y-Li3kYwPc87w9-i05C_-Uim0A/edit
+discussion board: https://docs.google.com/document/d/1YROqtq7iVS8Uke8m3y-Li3kYwPc87w9-i05C_-Uim0A/edit
+
+Scrum: https://tree.taiga.io/project/yuhanl1n-youbarragetube/
