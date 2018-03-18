@@ -1,7 +1,7 @@
 # CSCI5828 Final Project -- YouBarrageTube
 **Team member: Liangjun Song, Yuhan Lin, Zhenguo Chen**
 
-**Team name: Deadshots.**
+**Team name: Deadshots**
 
 **History: our team focus on creating a platform for users to shoot bullet comments on YouTube videos. Since it is called bullet comments, our first thought is Cowboys. However, Deadshots sounds cooler!)**
 
