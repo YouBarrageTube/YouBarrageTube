@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var dbhelper = require('./dbhelper.js');
 
 // Create our app
 var app = express();
@@ -7,6 +8,13 @@ var app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//dbhelper.init();
+
+var comments= dbhelper.getComments('123',function(comments){
+    console.log(comments);
+});
+
 
 app.post('/message', function (req, res) {
     //console.log(req);
