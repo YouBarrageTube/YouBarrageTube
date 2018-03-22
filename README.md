@@ -9,7 +9,7 @@
 
 Example:
 
-![](img/demo.png)
+![](docs/img/demo.png)
 
 discussion board: https://docs.google.com/document/d/1YROqtq7iVS8Uke8m3y-Li3kYwPc87w9-i05C_-Uim0A/edit
 

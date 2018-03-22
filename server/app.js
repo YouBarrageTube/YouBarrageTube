@@ -9,7 +9,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//dbhelper.init();
+dbhelper.init();
 
 var comments= dbhelper.getComments('123',function(comments){
     console.log(comments);
