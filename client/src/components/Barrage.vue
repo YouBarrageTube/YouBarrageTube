@@ -1,10 +1,12 @@
 <template>
     <div>
-        <p v-for="comment in currentComments" :class="{pause: !isPlaying}" :key="comment.id">{{comment.content}}</p>
+        <p v-for="comment in currentComments" :class="{pause: !isPlaying}" :key="comment.id">{{comment.comment}}</p>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 var testData = [
   {
     time: 0,
@@ -30,22 +32,44 @@ var testData = [
 
 export default {
   name: "Barrage",
-  props: ["isPlaying", "currentTime"],
+  props: ["isPlaying", "currentTime", "submitedInput","videoId"],
   data: function() {
     return {
-      comments: testData,
+      comments: [],
       currentIndex: 0,
       currentComments:[],
     };
   },
   watch: {
     currentTime: function(newVal, oldVal) {
-      while(this.currentIndex < this.comments.length && this.comments[this.currentIndex].time <= newVal){
+      while(this.currentIndex < this.comments.length && this.comments[this.currentIndex].videoTime <= newVal){
           this.currentComments.push(this.comments[this.currentIndex]);
           this.currentIndex = this.currentIndex + 1;
       }
+    },
+    submitedInput: function(newVal, oldVal){
+      console.log(newVal);
+      this.currentComments.push({
+        comment:this.submitedInput,
+        videoTime: this.currentTime
+      });
+      axios.post('/v1/comment',{
+        videoUrl: this.videoId,
+        comment: this.submitedInput,
+        videoTime: this.currentTime
+      }).then(function(response){
+        console.log(response.data);
+      });
     }
   },
+  mounted(){
+    var that = this;
+    axios.post('/v1/comments',{
+      videoUrl: this.videoId,
+    }).then(function(response){
+      console.log(that.comments = response.data);
+    });
+  }
 };
 </script>
 

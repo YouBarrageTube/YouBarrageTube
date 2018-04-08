@@ -1,8 +1,12 @@
 <template>
-  <div v-on:click="play">
-      <player :isPlaying="isPlaying"  @onTimeUpdate="currentTime = $event"/>
-      <barrage :isPlaying="isPlaying" :currentTime="currentTime"/>
+  <div >
+      <div v-on:click="play">
+        <player :isPlaying="isPlaying" :videoId = "videoId" @onTimeUpdate="currentTime = $event"/>
+        <barrage :isPlaying="isPlaying"  :videoId = "videoId" :submitedInput="submitedInput" :currentTime="currentTime"/>
+      </div>
       <p>{{currentTime}}s<p/>
+      <textarea v-model="currentInput" placeholder="add your comment"></textarea>
+      <button @click = "addComment">Submit</button>
   </div>
 </template>
 
@@ -14,8 +18,11 @@ export default {
   name: 'BarragePlayer',
   data: function(){
       return {
+          videoId:'A0D1h30kXlI',
           isPlaying:false,
-          currentTime:0
+          currentTime:0,
+          currentInput:'',
+          submitedInput:'',
       };
   },
   components:{
@@ -24,9 +31,13 @@ export default {
   },
   methods: {
       play: function(e){
-          e.preventDefault()
+          e.preventDefault();
           this.isPlaying = !this.isPlaying;
-          console.log(this.isPlaying);
+      },
+      addComment: function(e){
+        e.preventDefault();
+        this.submitedInput = this.currentInput;
+        this.currentInput = "";
       }
   }
 }
