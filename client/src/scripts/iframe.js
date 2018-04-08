@@ -21,8 +21,6 @@ var iframe = function(el, id) {
                 rel: 0
               }
             });
-  
-      //console.log($('iframe'));
     });
   };
   

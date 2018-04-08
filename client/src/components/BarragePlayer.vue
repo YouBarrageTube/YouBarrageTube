@@ -1,7 +1,8 @@
 <template>
   <div v-on:click="play">
-      <player/>
-      <barrage/>
+      <player :isPlaying="isPlaying"  @onTimeUpdate="currentTime = $event"/>
+      <barrage :isPlaying="isPlaying" :currentTime="currentTime"/>
+      <p>{{currentTime}}s<p/>
   </div>
 </template>
 
@@ -11,6 +12,12 @@ import Player from './Player';
 
 export default {
   name: 'BarragePlayer',
+  data: function(){
+      return {
+          isPlaying:false,
+          currentTime:0
+      };
+  },
   components:{
       'barrage': Barrage,
       'player': Player
@@ -18,7 +25,8 @@ export default {
   methods: {
       play: function(e){
           e.preventDefault()
-          console.log("got it");
+          this.isPlaying = !this.isPlaying;
+          console.log(this.isPlaying);
       }
   }
 }
