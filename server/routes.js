@@ -1,26 +1,30 @@
 var apiVersion = '/v1';
-var dbhelper = require('./dbhelper');
+var dbhelper = require('./dbHelper');
+var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
-    app.post(apiVersion + '/comments', function (req, res) {
-        console.log(req);
-        dbhelper.getComments(req.body.videoUrl, function (comments) {
-            //console.log(comments);
+    /*/
+    Comment endpoints
+     */
+    app.get(apiVersion + '/comments', function (req, res) {
+        dbhelper.getComments(req.query.videoUrl, function (comments) {
             res.send(comments);
         });
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        console.log(req);
         dbhelper.insertComment(req.body.videoUrl, req.body.comment, req.body.videoTime);
         res.send('Comment inserted');
     });
 
-    //TODO:just for initial form
-    app.post('/message', function (req, res) {
-        console.log(req);
-        var message = req.body.message;
-        res.send('Server sent back the message: ' + message + ' at ' + new Date());
+    /*
+    Video endpoints
+     */
+    var apiPath = '/video';
+    app.get(apiVersion + apiPath + '/popular', function (req, res) {
+        videoHelper.getPopular(5, function (response) {
+            res.send(response.data);
+        });
     });
 
 };
