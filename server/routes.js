@@ -3,7 +3,7 @@ var dbhelper = require('./dbHelper');
 var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
-    /*/
+    /**
     Comment endpoints
      */
     app.get(apiVersion + '/comments', function (req, res) {
@@ -17,14 +17,22 @@ module.exports = function (app) {
         res.send('Comment inserted');
     });
 
-    /*
+    /**
     Video endpoints
      */
     var apiPath = '/video';
     app.get(apiVersion + apiPath + '/popular', function (req, res) {
-        videoHelper.getPopular(5, function (response) {
-            res.send(response.data);
-        });
+        if (req.query.resultNum) {
+            videoHelper.getPopular(parseInt(req.query.resultNum), function (response) {
+                res.send(response);
+            });
+        }
+        else {
+            //default fetch 10 results
+            videoHelper.getPopular(10, function (response) {
+                res.send(response);
+            });
+        }
     });
 
 };

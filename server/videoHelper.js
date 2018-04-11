@@ -14,6 +14,11 @@ exports.getPopular = function (resultNum, fn) {
             fn('The API returned an error: ' + err);
             return;
         }
-        fn(response);
+        var items = response.data.items;
+        var res = [];
+        items.forEach(function (item) {
+            res.push({'id': item.id, 'title': item.snippet.title, 'thumbnail': item.snippet.thumbnails.standard.url});
+        });
+        fn(res);
     });
 };
