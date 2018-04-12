@@ -4,7 +4,7 @@ var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
     /**
-    Comment endpoints
+     Comment endpoints
      */
     app.get(apiVersion + '/comments', function (req, res) {
         dbhelper.getComments(req.query.videoId, function (comments) {
@@ -18,7 +18,7 @@ module.exports = function (app) {
     });
 
     /**
-    Video endpoints
+     Video endpoints
      */
     var apiPath = '/video';
 
@@ -37,7 +37,7 @@ module.exports = function (app) {
     });
 
     app.get(apiVersion + apiPath + '/search', function (req, res) {
-        if(!req.query.keyword){
+        if (!req.query.keyword) {
             res.status(400).send('Required parameter: keyword');
         }
         else if (req.query.resultNum) {
@@ -52,5 +52,11 @@ module.exports = function (app) {
             });
         }
     });
+
+    app.get(apiVersion + apiPath + '/test', function (req, res) {
+        videoHelper.searchById(req.query.id, function (response) {
+            res.send(response);
+        });
+    })
 
 };
