@@ -42,6 +42,8 @@ exports.seachByKeyword = function (keyword, resultNum, fn) {
         var items = response.data.items;
         var res = [];
         items.forEach(function (item) {
+            if(item.id.kind!= 'youtube#video')
+                return ;
             res.push({
                 'id': item.id.videoId,
                 'title': item.snippet.title,
