@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var dbhelper = require('./dbhelper');
+var dbhelper = require('./dbHelper');
 
 // Create our app
 var app = express();

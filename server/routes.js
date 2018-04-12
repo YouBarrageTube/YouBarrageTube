@@ -1,26 +1,56 @@
 var apiVersion = '/v1';
-var dbhelper = require('./dbhelper');
+var dbhelper = require('./dbHelper');
+var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
-    app.post(apiVersion + '/comments', function (req, res) {
-        console.log(req);
-        dbhelper.getComments(req.body.videoUrl, function (comments) {
-            //console.log(comments);
+    /**
+    Comment endpoints
+     */
+    app.get(apiVersion + '/comments', function (req, res) {
+        dbhelper.getComments(req.query.videoId, function (comments) {
             res.send(comments);
         });
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        console.log(req);
-        dbhelper.insertComment(req.body.videoUrl, req.body.comment, req.body.videoTime);
+        dbhelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
         res.send('Comment inserted');
     });
 
-    //TODO:just for initial form
-    app.post('/message', function (req, res) {
-        console.log(req);
-        var message = req.body.message;
-        res.send('Server sent back the message: ' + message + ' at ' + new Date());
+    /**
+    Video endpoints
+     */
+    var apiPath = '/video';
+
+    app.get(apiVersion + apiPath + '/popular', function (req, res) {
+        if (req.query.resultNum) {
+            videoHelper.getPopular(parseInt(req.query.resultNum), function (response) {
+                res.send(response);
+            });
+        }
+        else {
+            //default fetch 10 results
+            videoHelper.getPopular(10, function (response) {
+                res.send(response);
+            });
+        }
+    });
+
+    app.get(apiVersion + apiPath + '/search', function (req, res) {
+        if(!req.query.keyword){
+            res.status(400).send('Required parameter: keyword');
+        }
+        else if (req.query.resultNum) {
+            videoHelper.seachByKeyword(req.query.keyword, parseInt(req.query.resultNum), function (response) {
+                res.send(response);
+            });
+        }
+        else {
+            //default fetch 10 results
+            videoHelper.seachByKeyword(req.query.keyword, 10, function (response) {
+                res.send(response);
+            });
+        }
     });
 
 };
