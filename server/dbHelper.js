@@ -3,25 +3,17 @@ const videlHelper = require('./videoHelper');
 var url = "mongodb://localhost:27017/";
 var dbName = 'YouBarrageTube';
 var commentCollection = "comments";
-var commentNumCollection = "comments_num"
+var commentNumCollection = "comments_num";
 var top10MostComments = [];
 
 exports.init = function () {
 
     MongoClient.connect(url + dbName, function (err, db) {
         if (err) throw err;
-        console.log("Database Created");
+        console.log("Database Linked");
         db.close();
     });
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
-        dbo.createCollection(commentCollection, function (err, res) {
-            if (err) throw err;
-            console.log("Collections Created");
-            db.close();
-        });
-    });
+    initTop10MostComments();
 };
 
 exports.insertComment = function (videoId, comment, videoTime) {
@@ -35,7 +27,7 @@ exports.insertComment = function (videoId, comment, videoTime) {
             if (err) throw err;
             console.log(res);
             db.close();
-            this.addOneRecord(videoId);
+            addOneRecord(videoId);
         });
     })
 };
@@ -53,7 +45,6 @@ exports.getComments = function (videoId, fn) {
                 comments.sort(function (a, b) {
                     return parseFloat(a.videoTime) - parseFloat(b.videoTime);
                 });
-
             }
             else comments = [];
             db.close();
@@ -62,7 +53,7 @@ exports.getComments = function (videoId, fn) {
     });
 };
 
-exports.addOneRecord = function (videoId) {
+function addOneRecord(videoId) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
@@ -71,12 +62,15 @@ exports.addOneRecord = function (videoId) {
             if (err) throw err;
             if (result) {
                 console.log(result);
-                var currnetNum = parseInt(result.num);
-                var newValues = {$set: {num: currnetNum + 1}};
-                dbo.collection(commentNumCollection).updateOne(query, newValues, function (err, res) {
+                var currentNum = parseInt(result.num);
+                result.num = currentNum + 1;
+                var newValues = {$set: {num: currentNum + 1}};
+                dbo.collection(commentNumCollection).update(query, newValues, function (err, res) {
                     if (err) throw err;
                     console.log("1 document updated");
                     db.close();
+                    result.num = currentNum + 1;
+                    updateTop10MostComments(currentNum + 1, result);
                 });
             }
             else {
@@ -91,6 +85,7 @@ exports.addOneRecord = function (videoId) {
                         if (err) throw err;
                         console.log("1 document insert");
                         db.close();
+                        updateTop10MostComments(1, newValues);
                     });
                 });
 
@@ -99,3 +94,54 @@ exports.addOneRecord = function (videoId) {
         });
     });
 };
+
+exports.getTop10MostComments = function (fn) {
+    fn(top10MostComments);
+};
+
+function initTop10MostComments() {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(dbName);
+        var query = {};
+        var options = {
+            "limit": 10,
+            "sort": "[['num','desc'], ['title','asc']]"
+        };
+
+        dbo.collection(commentNumCollection).find(query, options).toArray(function (err, result) {
+            top10MostComments = result ;
+            top10MostComments.forEach(function(item){
+               item.id = item._id;
+               delete item._id;
+            });
+            top10MostComments.sort(function (a, b) {
+                return b.num - a.num;
+            });
+            db.close();
+        });
+    });
+};
+
+function updateTop10MostComments(newNum, newValues) {
+    newValues.id = newValues._id;
+    delete newValues._id;
+    for(var i =0; i<top10MostComments.length;i++){
+        if(top10MostComments[i].id == newValues.id){
+            top10MostComments[i].num = newNum;
+            top10MostComments.sort(function (a, b) {
+                return b.num - a.num;
+            });
+            return ;
+        }
+    }
+    if (top10MostComments.length < 10)
+        top10MostComments.push(newValues);
+    else if (top10MostComments.slice(-1)[0].num < newNum) {
+        top10MostComments.pop();
+        top10MostComments.push(newValues);
+        top10MostComments.sort(function (a, b) {
+            return b.num - a.num;
+        });
+    }
+}

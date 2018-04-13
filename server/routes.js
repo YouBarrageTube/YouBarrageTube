@@ -1,5 +1,5 @@
 var apiVersion = '/v1';
-var dbhelper = require('./dbHelper');
+var dbHelper = require('./dbHelper');
 var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
@@ -7,13 +7,13 @@ module.exports = function (app) {
      Comment endpoints
      */
     app.get(apiVersion + '/comments', function (req, res) {
-        dbhelper.getComments(req.query.videoId, function (comments) {
+        dbHelper.getComments(req.query.videoId, function (comments) {
             res.send(comments);
         });
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        dbhelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
+        dbHelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
         res.send('Comment inserted');
     });
 
@@ -53,11 +53,13 @@ module.exports = function (app) {
         }
     });
 
-    app.get(apiVersion + videoApiPath + '/test', function (req, res) {
+    app.get(apiVersion + videoApiPath + '/top10Comments', function (req, res) {
         /*videoHelper.searchById(req.query.id, function (response) {
             res.send(response);
         });*/
-        dbhelper.addOneRecord("jPEYpryMp2s");
+        dbHelper.getTop10MostComments(function(response){
+           res.send(response);
+        });
     });
 
 };
