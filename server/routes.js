@@ -20,9 +20,9 @@ module.exports = function (app) {
     /**
      Video endpoints
      */
-    var apiPath = '/video';
+    var videoApiPath = '/video';
 
-    app.get(apiVersion + apiPath + '/popular', function (req, res) {
+    app.get(apiVersion + videoApiPath + '/popular', function (req, res) {
         if (req.query.resultNum) {
             videoHelper.getPopular(parseInt(req.query.resultNum), function (response) {
                 res.send(response);
@@ -36,7 +36,7 @@ module.exports = function (app) {
         }
     });
 
-    app.get(apiVersion + apiPath + '/search', function (req, res) {
+    app.get(apiVersion + videoApiPath + '/search', function (req, res) {
         if (!req.query.keyword) {
             res.status(400).send('Required parameter: keyword');
         }
@@ -53,10 +53,11 @@ module.exports = function (app) {
         }
     });
 
-    app.get(apiVersion + apiPath + '/test', function (req, res) {
-        videoHelper.searchById(req.query.id, function (response) {
+    app.get(apiVersion + videoApiPath + '/test', function (req, res) {
+        /*videoHelper.searchById(req.query.id, function (response) {
             res.send(response);
-        });
-    })
+        });*/
+        dbhelper.addOneRecord("jPEYpryMp2s");
+    });
 
 };
