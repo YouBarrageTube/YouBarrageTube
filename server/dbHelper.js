@@ -60,6 +60,7 @@ function addOneRecord(videoId) {
         var query = {_id: videoId};
         dbo.collection(commentNumCollection).findOne(query, function (err, result) {
             if (err) throw err;
+            // if record exists
             if (result) {
                 console.log(result);
                 var currentNum = parseInt(result.num);
@@ -108,7 +109,7 @@ function initTop10MostComments() {
             "limit": 10,
             "sort": "[['num','desc'], ['title','asc']]"
         };
-
+        //fetch top 10 records
         dbo.collection(commentNumCollection).find(query, options).toArray(function (err, result) {
             top10MostComments = result ;
             top10MostComments.forEach(function(item){
@@ -126,6 +127,7 @@ function initTop10MostComments() {
 function updateTop10MostComments(newNum, newValues) {
     newValues.id = newValues._id;
     delete newValues._id;
+    //if video already exists in top 10
     for(var i =0; i<top10MostComments.length;i++){
         if(top10MostComments[i].id == newValues.id){
             top10MostComments[i].num = newNum;
@@ -135,9 +137,11 @@ function updateTop10MostComments(newNum, newValues) {
             return ;
         }
     }
+    // if top 10 hasn't 10 records
     if (top10MostComments.length < 10)
         top10MostComments.push(newValues);
     else if (top10MostComments.slice(-1)[0].num < newNum) {
+        //Pop last element in top 10, push the new one then sort
         top10MostComments.pop();
         top10MostComments.push(newValues);
         top10MostComments.sort(function (a, b) {
