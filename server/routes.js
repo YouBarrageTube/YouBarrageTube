@@ -1,28 +1,28 @@
 var apiVersion = '/v1';
-var dbhelper = require('./dbHelper');
+var dbHelper = require('./dbHelper');
 var videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
     /**
-    Comment endpoints
+     Comment endpoints
      */
     app.get(apiVersion + '/comments', function (req, res) {
-        dbhelper.getComments(req.query.videoId, function (comments) {
+        dbHelper.getComments(req.query.videoId, function (comments) {
             res.send(comments);
         });
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        dbhelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
+        dbHelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
         res.send('Comment inserted');
     });
 
     /**
-    Video endpoints
+     Video endpoints
      */
-    var apiPath = '/video';
+    var videoApiPath = '/video';
 
-    app.get(apiVersion + apiPath + '/popular', function (req, res) {
+    app.get(apiVersion + videoApiPath + '/popular', function (req, res) {
         if (req.query.resultNum) {
             videoHelper.getPopular(parseInt(req.query.resultNum), function (response) {
                 res.send(response);
@@ -36,8 +36,8 @@ module.exports = function (app) {
         }
     });
 
-    app.get(apiVersion + apiPath + '/search', function (req, res) {
-        if(!req.query.keyword){
+    app.get(apiVersion + videoApiPath + '/search', function (req, res) {
+        if (!req.query.keyword) {
             res.status(400).send('Required parameter: keyword');
         }
         else if (req.query.resultNum) {
@@ -51,6 +51,15 @@ module.exports = function (app) {
                 res.send(response);
             });
         }
+    });
+
+    app.get(apiVersion + videoApiPath + '/top10Comments', function (req, res) {
+        /*videoHelper.searchById(req.query.id, function (response) {
+            res.send(response);
+        });*/
+        dbHelper.getTop10MostComments(function(response){
+           res.send(response);
+        });
     });
 
 };
