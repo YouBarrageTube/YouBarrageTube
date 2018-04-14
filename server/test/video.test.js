@@ -6,7 +6,6 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 var baseUrl = 'http://localhost:3000/v1/video';
-var testVideoId = 'fg5S3cFwzKI';
 
 describe('Video APIs', function () {
 
@@ -132,7 +131,7 @@ describe('Video APIs', function () {
     /*
     Get a 200 and no more than 10 results
     */
-    it('should return 400 status code and no more than 10 results', function (done) {
+    it('should return 200 status code and get no more than 10 results', function (done) {
         chai.request(baseUrl)
             .get('/top10Comments')
             .end(function (err, res) {
