@@ -25,7 +25,6 @@ exports.insertComment = function (videoId, comment, videoTime) {
         var options = {upsert: true};
         dbo.collection(commentCollection).updateOne(query, newvalues, options, function (err, res) {
             if (err) throw err;
-            console.log(res);
             db.close();
             addOneRecord(videoId);
         });
@@ -62,8 +61,8 @@ function addOneRecord(videoId) {
             if (err) throw err;
             // if record exists
             if (result) {
-                console.log(result);
                 var currentNum = parseInt(result.num);
+                //plus one to current comment num
                 result.num = currentNum + 1;
                 var newValues = {$set: {num: currentNum + 1}};
                 dbo.collection(commentNumCollection).update(query, newValues, function (err, res) {
@@ -76,12 +75,11 @@ function addOneRecord(videoId) {
             }
             else {
                 videlHelper.searchById(videoId, function (response) {
-                    console.log(response);
+                    // add new record with one comment num
                     var newValues = response;
                     newValues._id = newValues.id;
                     delete newValues.id;
                     newValues.num = 1;
-                    console.log(newValues);
                     dbo.collection(commentNumCollection).insertOne(newValues, function (err, res) {
                         if (err) throw err;
                         console.log("1 document insert");
@@ -94,7 +92,7 @@ function addOneRecord(videoId) {
             //fn(comments);
         });
     });
-};
+}
 
 exports.getTop10MostComments = function (fn) {
     fn(top10MostComments);
@@ -122,7 +120,7 @@ function initTop10MostComments() {
             db.close();
         });
     });
-};
+}
 
 function updateTop10MostComments(newNum, newValues) {
     newValues.id = newValues._id;
@@ -145,7 +143,7 @@ function updateTop10MostComments(newNum, newValues) {
         top10MostComments.pop();
         top10MostComments.push(newValues);
         top10MostComments.sort(function (a, b) {
-            return b.num - a.num;
+             return b.num - a.num;
         });
     }
 }
