@@ -83,7 +83,6 @@ describe('Comment APIs', function (done) {
             .type('form')
             .send({videoId: testVideoId, comment:'123'})
             .end(function (err, res) {
-                console.log(res.status);
                 expect(res).to.have.status(400);
                 done();
             });

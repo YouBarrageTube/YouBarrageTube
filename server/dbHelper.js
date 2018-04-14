@@ -10,7 +10,6 @@ exports.init = function () {
 
     MongoClient.connect(url + dbName, function (err, db) {
         if (err) throw err;
-        console.log("Database Linked");
         db.close();
     });
     initTop10MostComments();
@@ -20,7 +19,7 @@ exports.insertComment = function (videoId, comment, videoTime) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
-        var query = {_id: videoId};
+        var query = {_id: videoId.toString()};
         var newvalues = {$push: {comments: {comment: comment, videoTime: videoTime}}};
         var options = {upsert: true};
         dbo.collection(commentCollection).updateOne(query, newvalues, options, function (err, res) {
@@ -35,7 +34,7 @@ exports.getComments = function (videoId, fn) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
-        var query = {_id: videoId};
+        var query = {_id: videoId.toString()};
         var options = {'_id': false};
         dbo.collection(commentCollection).find(query).project(options).toArray(function (err, result) {
             if (err) throw err;
@@ -56,7 +55,7 @@ function addOneRecord(videoId) {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db(dbName);
-        var query = {_id: videoId};
+        var query = {_id: videoId.toString()};
         dbo.collection(commentNumCollection).findOne(query, function (err, result) {
             if (err) throw err;
             // if record exists
@@ -67,7 +66,6 @@ function addOneRecord(videoId) {
                 var newValues = {$set: {num: currentNum + 1}};
                 dbo.collection(commentNumCollection).update(query, newValues, function (err, res) {
                     if (err) throw err;
-                    console.log("1 document updated");
                     db.close();
                     result.num = currentNum + 1;
                     updateTop10MostComments(currentNum + 1, result);
