@@ -1,0 +1,97 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2018-04-14T04:06:50.967Z",
+    "end": "2018-04-14T04:06:51.003Z",
+    "duration": 36,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "passPercentClass": "success",
+    "pendingPercentClass": "danger"
+  },
+  "suites": {
+    "uuid": "1ef605d5-1c1b-4567-bb57-a016f7ed901a",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [],
+    "suites": [
+      {
+        "uuid": "1a0f809b-e596-4819-a83d-b067fd38cfd6",
+        "title": "Comment APIs",
+        "fullFile": "/Users/Lin/Documents/Study/YouBarrageTube/server/test/comment.test.js",
+        "file": "/comment.test.js",
+        "beforeHooks": [],
+        "afterHooks": [],
+        "tests": [
+          {
+            "title": "should return 200 status code if with VideoID",
+            "fullTitle": "Comment APIs should return 200 status code if with VideoID",
+            "timedOut": false,
+            "duration": 10,
+            "state": "passed",
+            "speed": "fast",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "chai.request(baseUrl)\n    .get('/comments')\n    .query({videoId: testVideoId})\n    .end(function (err, res) {\n        expect(res).to.have.status(200);\n    });",
+            "err": {},
+            "isRoot": false,
+            "uuid": "3c1fd492-5cca-4c8e-894e-b27a45d8fbcb",
+            "isHook": false,
+            "skipped": false
+          },
+          {
+            "title": "should return 400 status code if without VideoId",
+            "fullTitle": "Comment APIs should return 400 status code if without VideoId",
+            "timedOut": false,
+            "duration": 2,
+            "state": "passed",
+            "speed": "fast",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "chai.request(baseUrl)\n    .get('/comments')\n    .query({videoId: testVideoId})\n    .end(function (err, res) {\n        expect(res).to.have.status(400);\n    });",
+            "err": {},
+            "isRoot": false,
+            "uuid": "94080b2d-08a0-4d46-afc6-74059041a1f3",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "3c1fd492-5cca-4c8e-894e-b27a45d8fbcb",
+          "94080b2d-08a0-4d46-afc6-74059041a1f3"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 12,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 2000
+      }
+    ],
+    "passes": [],
+    "failures": [],
+    "pending": [],
+    "skipped": [],
+    "duration": 0,
+    "root": true,
+    "rootEmpty": true,
+    "_timeout": 2000
+  },
+  "copyrightYear": 2018
+}

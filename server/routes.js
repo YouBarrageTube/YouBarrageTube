@@ -7,14 +7,25 @@ module.exports = function (app) {
      Comment endpoints
      */
     app.get(apiVersion + '/comments', function (req, res) {
-        dbHelper.getComments(req.query.videoId, function (comments) {
-            res.send(comments);
-        });
+        if (req.query.videoId) {
+            dbHelper.getComments(req.query.videoId, function (comments) {
+                res.send(comments);
+            });
+        }
+        else {
+            res.status(400).send("Required parameter: videoId");
+        }
+
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        dbHelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
-        res.send('Comment inserted');
+        if (req.body.videoId && req.body.comment && req.body.videoTime){
+            dbHelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
+            res.send('Comment inserted');
+        }
+        else{
+            res.status(400).send("Required parameter in body: videoId, comment, videoTime");
+        }
     });
 
     /**
@@ -57,8 +68,8 @@ module.exports = function (app) {
         /*videoHelper.searchById(req.query.id, function (response) {
             res.send(response);
         });*/
-        dbHelper.getTop10MostComments(function(response){
-           res.send(response);
+        dbHelper.getTop10MostComments(function (response) {
+            res.send(response);
         });
     });
 

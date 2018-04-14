@@ -32,6 +32,7 @@ exports.seachByKeyword = function (keyword, resultNum, fn) {
         'maxResults': resultNum,
         'part': 'snippet',
         'q': keyword,
+        'type': 'video',
         'key': key
     };
     service.search.list(params, function (err, response) {
