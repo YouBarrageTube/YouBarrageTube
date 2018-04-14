@@ -75,9 +75,6 @@ module.exports = function (app) {
     });
 
     app.get(apiVersion + videoApiPath + '/top10Comments', function (req, res) {
-        /*videoHelper.searchById(req.query.id, function (response) {
-            res.send(response);
-        });*/
         dbHelper.getTop10MostComments(function (response) {
             res.send(response);
         });
