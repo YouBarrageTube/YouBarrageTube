@@ -19,7 +19,7 @@ module.exports = function (app) {
     });
 
     app.post(apiVersion + '/comment', function (req, res) {
-        if (req.body.videoId && req.body.comment && req.body.videoTime){
+        if (req.body.videoId && req.body.comment && req.body.videoTime != null){
             dbHelper.insertComment(req.body.videoId, req.body.comment, req.body.videoTime);
             res.send('Comment inserted');
         }

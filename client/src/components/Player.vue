@@ -8,7 +8,7 @@ import iframe from '../scripts/iframe';
 
 export default {
     name: 'Player',
-    props:['isPlaying','videoId'],
+    props:['isPlaying','videoId','playerWidth','playerHeight'],
     watch: { 
       	isPlaying: function(newVal, oldVal) { // watch it
             if(oldVal){
@@ -19,8 +19,7 @@ export default {
         }
     },
     mounted(){
-        //console.log(this);
-        this.player = new iframe(this.$el,this.videoId);
+        this.player = new iframe(this.$el,this.videoId, this.playerHeight, this.playerWidth);
         var that = this;
         setInterval(function(){
             that.$emit('onTimeUpdate', Math.floor(that.player.player.getCurrentTime()));

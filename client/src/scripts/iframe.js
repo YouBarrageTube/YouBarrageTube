@@ -1,4 +1,4 @@
-var iframe = function(el, id) {
+var iframe = function(el, id, height, width) {
     this.el = el;
     this.id = id;
     var loadYT = new Promise(resolve => {
@@ -10,8 +10,8 @@ var iframe = function(el, id) {
     });
     loadYT.then(YT => {
           this.player = new YT.Player(this.el, {
-              height: 315,
-              width: 650,
+              height: height,
+              width: width,
               videoId: this.id,
               playerVars: {
                 controls: 0,
