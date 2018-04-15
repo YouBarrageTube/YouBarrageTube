@@ -78,3 +78,28 @@ exports.searchById = function (id, fn) {
         fn(res);
     });
 };
+
+exports.searchByRelatedId = function (id, fn) {
+    const params = {
+        'part': 'snippet',
+        'relatedToVideoId': id,
+        'type': 'video',
+        'key': key
+    };
+    service.videos.list(params, function (err, response) {
+        if (err) {
+            fn('The API returned an error: ' + err);
+            return;
+        }
+        var items = response.data.items;
+        var res = {};
+        items.forEach(function (item) {
+            res = {
+                'id': id,
+                'title': item.snippet.title,
+                'thumbnail': item.snippet.thumbnails.high.url
+            };
+        });
+        fn(res);
+    });
+};
