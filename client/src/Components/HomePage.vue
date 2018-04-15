@@ -1,23 +1,22 @@
 <template>
     <div>
         <navigation-menu/>
+        <h1 align="center">Share Your Comment!</h1>
         <!--go to barrageplayer container later to format-->
-        <player-container></player-container>
-        
         <video-list></video-list>
     </div>
 </template>
 
 <script>
-    import PlayerContainer from './PlayerContainer'
+    import BarragePlayer from './BarragePlayer'
     import NavigationMenu from './NavigationMenu'
     import VideoList from './VideoList'
     
     export default {
-        name: 'VideoPage',
+        name: 'HomePage',
         components: {
             'navigation-menu': NavigationMenu,
-            'player-container': PlayerContainer,
+            'barrage-player': BarragePlayer,
             'video-list': VideoList
         }
     }
@@ -25,5 +24,10 @@
 
 
 <style scoped>
-
+    .container {
+        margin: auto;
+        width: 50%;
+        border: 3px solid green;
+        padding: 10px;
+    }
 </style>
