@@ -11,10 +11,14 @@ export default {
 </script>
 
 <style>
-body {
+*{
   margin: 0;
   padding: 0;
-  display: inline-block;
+  box-sizing: border-box;
+}
+
+body {
   background-color: gray;
 }
+
 </style>
