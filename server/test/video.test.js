@@ -6,8 +6,13 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 var baseUrl = 'http://localhost:3000/v1/video';
+var testVideoId = 'hwjdXBxeWsc';
 
 describe('Video APIs', function () {
+
+    /**
+     * /popular
+     */
 
     /*
     Get a 200 and 10 results if without resultNum
@@ -61,6 +66,9 @@ describe('Video APIs', function () {
             });
     });
 
+    /**
+     * /search
+     */
 
     /*
     Get a 200 and 10 results if with keyword and without resultNum
@@ -128,6 +136,78 @@ describe('Video APIs', function () {
             });
     });
 
+    /**
+     * /relatedVideo
+     */
+
+    /*
+    Get a 200 and 10 results if with videoId and without resultNum
+    */
+    it('should return 200 status code and 10 video results if with videoId and without resultNum', function (done) {
+        chai.request(baseUrl)
+            .get('/relatedVideo')
+            .query({videoId: testVideoId})
+            .end(function (err, res) {
+                expect(res).to.have.status(200);
+                expect(res.body.length).to.equal(10);
+                done();
+            });
+    });
+    /*
+    Get a 200 and 20 results if with videoId and resultNum is 20
+    */
+    it('should return 200 status code and 20 video results if with videoId and resultNum is 20', function (done) {
+        chai.request(baseUrl)
+            .get('/relatedVideo')
+            .query({videoId: testVideoId, resultNum: 20})
+            .end(function (err, res) {
+                expect(res).to.have.status(200);
+                expect(res.body.length).to.equal(20);
+                done();
+            });
+    });
+
+    /*
+    Get a 400 if without keyword
+    */
+    it('should return 400 status code if without videoId', function (done) {
+        chai.request(baseUrl)
+            .get('/relatedVideo')
+            .end(function (err, res) {
+                expect(res).to.have.status(400);
+                done();
+            });
+    });
+
+    /*
+    Get a 400 if resultNum is smaller than 1
+    */
+    it('should return 400 status code if resultNum is smaller than 1(related video)', function (done) {
+        chai.request(baseUrl)
+            .get('/relatedVideo')
+            .query({videoId: testVideoId, resultNum: 0})
+            .end(function (err, res) {
+                expect(res).to.have.status(400);
+                done();
+            });
+    });
+
+    /*
+    Get a 400 if resultNum is larger than 50
+    */
+    it('should return 400 status code if resultNum is larger than 50(related video)', function (done) {
+        chai.request(baseUrl)
+            .get('/relatedVideo')
+            .query({videoId: testVideoId, resultNum: 51})
+            .end(function (err, res) {
+                expect(res).to.have.status(400);
+                done();
+            });
+    });
+
+    /**
+     * /top10Comments
+     */
     /*
     Get a 200 and no more than 10 results
     */

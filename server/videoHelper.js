@@ -93,13 +93,14 @@ exports.getRelatedVideoById = function (id, resultNum, fn) {
             return;
         }
         var items = response.data.items;
-        var res = {};
+        var res = [];
         items.forEach(function (item) {
-            res = {
-                'id': id,
+            res.push({
+                'id': item.id.videoId,
                 'title': item.snippet.title,
                 'thumbnail': item.snippet.thumbnails.high.url
-            };
+            });
+
         });
         fn(res);
     });
