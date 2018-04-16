@@ -79,14 +79,15 @@ exports.searchById = function (id, fn) {
     });
 };
 
-exports.searchByRelatedId = function (id, fn) {
+exports.getRelatedVideoById = function (id, resultNum, fn) {
     const params = {
+        'maxResults': resultNum,
         'part': 'snippet',
         'relatedToVideoId': id,
         'type': 'video',
         'key': key
     };
-    service.videos.list(params, function (err, response) {
+    service.search.list(params, function (err, response) {
         if (err) {
             fn('The API returned an error: ' + err);
             return;
