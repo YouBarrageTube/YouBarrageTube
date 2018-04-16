@@ -78,3 +78,30 @@ exports.searchById = function (id, fn) {
         fn(res);
     });
 };
+
+exports.getRelatedVideoById = function (id, resultNum, fn) {
+    const params = {
+        'maxResults': resultNum,
+        'part': 'snippet',
+        'relatedToVideoId': id,
+        'type': 'video',
+        'key': key
+    };
+    service.search.list(params, function (err, response) {
+        if (err) {
+            fn('The API returned an error: ' + err);
+            return;
+        }
+        var items = response.data.items;
+        var res = [];
+        items.forEach(function (item) {
+            res.push({
+                'id': item.id.videoId,
+                'title': item.snippet.title,
+                'thumbnail': item.snippet.thumbnails.high.url
+            });
+
+        });
+        fn(res);
+    });
+};
