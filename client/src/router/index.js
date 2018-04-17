@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Frame from '../components/Frame'
+import VideoPage from '../components/VideoPage'
+import HomePage from '../components/HomePage'
 
 Vue.use(Router)
 
@@ -8,8 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Frame',
-      component: Frame
+      name: 'HomePage',
+      component: HomePage
+    },
+    {
+      path: '/videos/:id',
+      name: 'VideoPage',
+      component: VideoPage
     }
   ]
 })

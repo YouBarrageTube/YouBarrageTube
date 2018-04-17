@@ -1,6 +1,6 @@
 <template>
-  <div style="height:100%">
-      <div v-on:click="play" class="player-container">
+  <div >
+      <div v-on:click="play">
         <player :isPlaying="isPlaying" 
         :videoId = "videoId" 
         :playerWidth = "playerWidth"
@@ -115,8 +115,5 @@ export default {
 
 
 <style scoped>
-.player-container{
-    position: relative;
-    height: 95%
-}
+
 </style>
