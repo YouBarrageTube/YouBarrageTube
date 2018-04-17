@@ -8,8 +8,6 @@
                 <div class="desc">{{video.title}}</div>
             </router-link>
         </div>
-    
-    
     </div>
 </template>
 
