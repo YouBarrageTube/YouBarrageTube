@@ -3,7 +3,9 @@
         <navigation-menu/>
         <h1 align="center">Share Your Comment!</h1>
         <!--go to barrageplayer container later to format-->
-        <video-list></video-list>
+        <div>
+            <video-list></video-list>
+        </div>
     </div>
 </template>
 
@@ -24,10 +26,5 @@
 
 
 <style scoped>
-    .container {
-        margin: auto;
-        width: 50%;
-        border: 3px solid green;
-        padding: 10px;
-    }
+
 </style>

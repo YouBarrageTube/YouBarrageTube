@@ -1,21 +1,43 @@
 <template>
-    <div>
-        <span v-for="video in videos" :key="video.id">
-         
+    <div class='row-list'>
+        <!-- <span v-for="video in videos" :key="video.id">
+                                 
+                                        <a :href='video.id'>
+                                            <router-link :to="`/videos/videoID`">
+                                                <figure>
+                                                    <p>
+                                                        <img :src="video.thumbnail" alt="video image">
+                                                        <figcaption>{{video.title}}</figcaption>
+                                                </figure>
+                                            </router-link>
+                                        </a>
+                                
+                                </span> -->
+        <!-- <div class="row">
+                        <div class="col-lg-1" v-for="video in videos" :key="video.id">
+                            <div class="thumbnail">
+                                <a :href='video.id'>
+                                    <router-link :to="`/videos/videoID`">
+                                        <img :src="video.thumbnail" alt="video image" style="width:100%;float:left">
+                                        <div class="caption">
+                                            <p>{{video.title}}</p>
+                                        </div>
+                                        
+                                    </router-link>
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+        <div class="gallery" v-for="video in videos" :key="video.id">
+            <router-link :to="`/videos/videoID`">
                 <a :href='video.id'>
-                    <router-link :to="`/videos/videoID`">
-                        <figure>
-                            <p>
-                                <img :src="video.thumbnail" alt="video image">
-                                <figcaption>{{video.title}}</figcaption>
-                        </figure>
-                        <!-- <div class="thumbnail-container">
-                            <img :src='video.thumbnail' align="middle"> {{video.title}}
-                        </div> -->
-                    </router-link>
+                    <img :src="video.thumbnail" alt="video image">
                 </a>
-        
-        </span>
+                <div class="desc">{{video.title}}</div>
+            </router-link>
+        </div>
+    
+    
     </div>
 </template>
 
@@ -38,52 +60,36 @@
 
 
 <style scoped>
-
-    div {
-        margin-left: 10%;
-        margin-right: 10%;
+    div.row-list {
+        margin-left: 12%;
+        margin-right: 12%;
     }
     
-    /* figure {
-        position: relative;
+    div.gallery {
+        border: 1px solid #ccc;
         float: left;
         width: 25%;
-        height: auto;
-        margin-left: 3%;
-        margin-right: 3%;
+        margin-right: 12.2%;
+        margin-bottom: 3%;
         margin-top: 3%;
-        margin-bottom: 3%;
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-        text-align: center;
-    } */
-
-    /* img {
+    }
+    
+    div.gallery:nth-child(3n+3) {
+        margin-right: 0%;
+    }
+    
+    div.gallery:hover {
+        border: 1px solid #777;
+    }
+    
+    div.gallery img {
         width: 100%;
-        height: 100%;
-    } */
-    span {
-        width: 33%;
         height: auto;
     }
-
-    figure {
-        /* position: relative; */
-        display: inline-block;
-        /* float: left; */
-        width: 33%;
-        height: auto;
-        margin-top: 1%;
-        margin-bottom: 3%;
-        /* background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: cover; */
+    
+    div.desc {
+        padding: 5%;
         text-align: center;
-    }
-
-    img {
-        width: 75%;
-        height: 75%;
+        height: 40px;
     }
 </style>
