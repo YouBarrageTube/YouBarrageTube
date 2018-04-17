@@ -1,10 +1,10 @@
 <template>
-    <div style="width: 80%; height: 100%">
-        <span v-for="comment in currentComments" 
+    <div class="container">
+        <p v-for="comment in currentComments" 
         :class="{pause: !isPlaying}" 
         :key="comment.id"
         :style = "{top: comment.height + '%'}"
-        >{{comment.comment}}</span>
+        >{{comment.comment}}</p>
     </div>
 </template>
 
@@ -57,28 +57,30 @@ export default {
 </script>
 
 <style scoped>
-div {
+.container {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 100;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
-span {
+p {
   display: block;
-  position: relative;
+  position: absolute;
   color: white;
-  transform: translateX(100%);
-  animation: wordmove 10s linear 0s;
+  left: 100%;
   width: 100%;
+  animation: wordmove 10s linear;
 }
 
 @keyframes wordmove {
   from {
-    transform: translateX(100%);
+    left: 100%;
   }
   to {
-    transform: translateX(-100%);
+    left: -100%;
   }
 }
 
