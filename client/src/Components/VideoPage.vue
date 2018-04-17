@@ -4,21 +4,21 @@
         <!--go to barrageplayer container later to format-->
         <player-container></player-container>
         
-        <video-list></video-list>
+        <related-video-list></related-video-list>
     </div>
 </template>
 
 <script>
     import PlayerContainer from './PlayerContainer'
     import NavigationMenu from './NavigationMenu'
-    import VideoList from './VideoList'
+    import RelatedVideoList from './RelatedVideoList'
     
     export default {
         name: 'VideoPage',
         components: {
             'navigation-menu': NavigationMenu,
             'player-container': PlayerContainer,
-            'video-list': VideoList
+            'related-video-list': RelatedVideoList
         }
     }
 </script>

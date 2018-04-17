@@ -17,14 +17,14 @@
 import axios from 'axios'
 
     export default {
-        name: 'VideoList',
+        name: 'RelatedVideoList',
         data: function() {
             return {
                 videos: []
             };
         },
         mounted: function() {
-            axios.get('/v1/video/popular?resultNum=21')
+            axios.get('/v1/video/relatedVideo?videoId=A0D1h30kXlI&resultNum=10')
                 .then(response => this.videos = response.data)
                 .catch(error => console.log(error));
         }
