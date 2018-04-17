@@ -1,6 +1,6 @@
 <template>
     <div class='container'>
-        <barrage-player/>
+        <barrage-player :videoId="videoId"/>
     </div>
 </template>
 
@@ -11,7 +11,8 @@
         name: 'PlayerContainer',
         components: {
             'barrage-player': BarragePlayer
-        }
+        },
+        props: ['videoId']
     }
 </script>
 
@@ -19,7 +20,7 @@
 <style scoped>
     .container {
         margin: auto;
-        width: 50%;
+        width: 80%;
         border: 3px solid green;
         padding: 10px;
         margin-bottom: 3%;
