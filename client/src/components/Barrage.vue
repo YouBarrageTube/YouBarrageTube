@@ -1,8 +1,9 @@
 <template>
-    <div :style="{height: playerHeight+'px',width: playerWidth+'px'}">
+    <div style="width: 80%; height: 100%">
         <span v-for="comment in currentComments" 
         :class="{pause: !isPlaying}" 
         :key="comment.id"
+        :style = "{top: comment.height + '%'}"
         >{{comment.comment}}</span>
     </div>
 </template>
@@ -61,15 +62,15 @@ div {
   top: 0;
   left: 0;
   z-index: 100;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
 }
 span {
   display: block;
+  position: relative;
   color: white;
   transform: translateX(100%);
   animation: wordmove 10s linear 0s;
+  width: 100%;
 }
 
 @keyframes wordmove {

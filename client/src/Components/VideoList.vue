@@ -1,7 +1,7 @@
 <template>
     <div class='row-list'>
         <div class="gallery" v-for="video in videos" :key="video.id">
-            <router-link :to="`/videos/videoID`">
+            <router-link :to="`/videos/`+video.id">
                 <a :href='video.id'>
                     <img :src="video.thumbnail" alt="video image">
                 </a>

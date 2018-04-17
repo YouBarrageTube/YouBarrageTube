@@ -10,6 +10,7 @@ exports.init = function () {
 
     MongoClient.connect(url + dbName, function (err, db) {
         if (err) throw err;
+        console.log('Database Linked');
         db.close();
     });
     initTop10MostComments();

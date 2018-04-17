@@ -13,7 +13,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/videos/videoID',
+      path: '/videos/:id',
       name: 'VideoPage',
       component: VideoPage
     }

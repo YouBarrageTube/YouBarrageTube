@@ -1,7 +1,7 @@
 <template>
     <div class='row-list'>
         <div class="gallery" v-for="video in videos" :key="video.id">
-            <router-link :to="`/videos/videoID`">
+            <router-link :to="`/videos/`+video.id">
                 <a :href='video.id'>
                     <img :src="video.thumbnail" alt="video image">
                 </a>
@@ -20,11 +20,24 @@ import axios from 'axios'
         name: 'RelatedVideoList',
         data: function() {
             return {
-                videos: []
+                videos: [],
+                id: this.$route.params.id
             };
         },
+        props: [
+            'videoID'
+        ],
+        watch:{
+            '$route.params.id': function(newID){
+                this.id = this.$route.params.id;
+                axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=10`)
+                .then(response => this.videos = response.data)
+                .catch(error => console.log(error));
+
+            }
+        },
         mounted: function() {
-            axios.get('/v1/video/relatedVideo?videoId=A0D1h30kXlI&resultNum=10')
+            axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=10`)
                 .then(response => this.videos = response.data)
                 .catch(error => console.log(error));
         }
