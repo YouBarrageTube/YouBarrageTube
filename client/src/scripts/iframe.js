@@ -1,4 +1,4 @@
-var iframe = function(el, id, height, width) {
+var iframe = function(el, id, height, width,parent) {
     this.el = el;
     this.id = id;
     var loadYT = new Promise(resolve => {
@@ -8,20 +8,38 @@ var iframe = function(el, id, height, width) {
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       window.onYouTubeIframeAPIReady = () => resolve(window.YT);
     });
+    parent.onPlayerStateChange = function(vueComponent,e){
+      console.log(e.data);
+      // console.log('emited');
+      // console.log(vueComponent);
+      //vueComponent.$emit('onPlayerStateChange');
+      if(e.data == YT.PlayerState.BUFFERING){
+        vueComponent.$emit('onTimeUpdate', Math.floor(vueComponent.player.player.getCurrentTime()));
+        vueComponent.$emit('onReloadComments');
+      }
+      if(e.data === YT.PlayerState.PLAYING || e.data === YT.PlayerState.PAUSED){
+        vueComponent.$emit('onPlayerStateChange', e.data);
+      }
+    }
+    parent.onPlayerStateChange = parent.onPlayerStateChange.bind(null,parent);
     loadYT.then(YT => {
           this.player = new YT.Player(this.el, {
               height: height,
               width: width,
               videoId: this.id,
               playerVars: {
-                controls: 0,
+                controls: 1,
                 disablekb: 0,
                 fs: 0,
                 showinfo: 0,
                 rel: 0
+              },
+              events: {
+                'onStateChange': parent.onPlayerStateChange
               }
             });
     });
+
   };
   
   export default iframe;
