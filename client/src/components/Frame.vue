@@ -1,6 +1,6 @@
 <template>
   <div class = "frame">
-    <barrage-player/>
+    <barrage-player videoId = "A0D1h30kXlI"/>
   </div>
 </template>
 
