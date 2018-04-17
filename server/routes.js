@@ -34,7 +34,7 @@ module.exports = function (app) {
     var videoApiPath = '/video';
 
     app.get(apiVersion + videoApiPath + '/popular', function (req, res) {
-        if (req.query.resultNum) {
+        if (req.query.resultNum != null) {
             if(req.query.resultNum>50||req.query.resultNum<1){
                 res.status(400).send('ResultNum should be in range[1,50]')
             }
@@ -56,7 +56,7 @@ module.exports = function (app) {
         if (!req.query.keyword) {
             res.status(400).send('Required parameter: keyword');
         }
-        else if (req.query.resultNum) {
+        else if (req.query.resultNum != null) {
             if(req.query.resultNum>50||req.query.resultNum<1){
                 res.status(400).send('ResultNum should be in range[1,50]')
             }
@@ -78,7 +78,7 @@ module.exports = function (app) {
         if (!req.query.videoId) {
             res.status(400).send('Required parameter: videoId');
         }
-        else if (req.query.resultNum) {
+        else if (req.query.resultNum != null) {
             if(req.query.resultNum>50||req.query.resultNum<1){
                 res.status(400).send('ResultNum should be in range[1,50]')
             }
