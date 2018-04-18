@@ -1,25 +1,40 @@
 <template>
     <div class="topnav">
-        <a class="active" href="/">Home</a>
+        <router-link to="/">
+            Home
+        </router-link>
         <router-link to="/career">
-            <!-- <a :href="`/career`">Career</a> -->
             Career
         </router-link>
-        <a href="/contact">Contact</a>
+        <router-link to="/about">
+            About Us
+        </router-link>
         <div class="search-container">
-            <form action="/action_page.php">
-                <input type="text" placeholder="Search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+            <input type="text" placeholder="Search.." name="search" v-model.lazy="query">
         </div>
     </div>
 </template>
 
 <script>
-import fontawesome from '@fortawesome/fontawesome'
-
+    import axios from 'axios'
+    import fontawesome from '@fortawesome/fontawesome'
+    
     export default {
-        name: 'NavigationMenu'
+        name: 'NavigationMenu',
+        data: function() {
+            return {
+                query: ""
+            };
+        },
+        watch: {
+            query: function(newQuery) {
+                //this.$router.push('/career')
+                this.$router.push(`/search?keyword=${newQuery}`);
+                // axios.get(`/v1/video/search?keyword=${newQuery}&resultNum=10`)
+                //     .then(response => this.$router.go(`/search?keyword=${newQuery}`))
+                //     .catch(error => console.log(error));
+            }
+        }
     }
 </script>
 
@@ -67,6 +82,7 @@ import fontawesome from '@fortawesome/fontawesome'
     .topnav input[type=text] {
         padding: 6px;
         margin-top: 8px;
+        margin-right: 10px;
         font-size: 17px;
         border: none;
     }

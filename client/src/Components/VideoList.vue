@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+    import axios from 'axios'
+    
     export default {
         name: 'VideoList',
         data: function() {
@@ -23,10 +23,44 @@ import axios from 'axios'
                 videos: []
             };
         },
+        props: [
+            'query',
+            'searchResult'
+        ],
+        watch: {
+            searchResult: function() {
+                // console.log('search result change in videolist');
+                // console.log(this.searchResult);
+                // console.log('video in watch function');
+                // console.log(this.videos);
+                this.videos = this.searchResult;
+            },
+            '$route.query.keyword': function(){
+                this.query = this.$route.query.keyword;
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+            }
+        },
         mounted: function() {
-            axios.get('/v1/video/popular?resultNum=21')
-                .then(response => this.videos = response.data)
-                .catch(error => console.log(error));
+            // console.log('searchResult');
+            // console.log(this.searchResult);
+            // console.log('query in video list');
+            // console.log(this.query);
+            // if (this.searchResult === undefined || this.searchResult.length == 0){
+    
+            if (this.query === undefined || this.query.length == 0) {
+                axios.get('/v1/video/popular?resultNum=21')
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+            } else {
+                console.log('set to search result');
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+                // this.videos = this.searchResult;
+            }
+    
         }
     }
 </script>
