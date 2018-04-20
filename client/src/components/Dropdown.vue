@@ -4,21 +4,42 @@
         <button class="dropbtn">Top 10</button>
         <div class="dropdown-content">
             <!-- <router-link :to="`/videos/`+video.id">
-                            {{video.title}}:{{video.num}}
-                        </router-link> -->
+                                        {{video.title}}:{{video.num}}
+                                    </router-link> -->
             <!-- <a href="/">VideonameVideonameVideonameVideoname</a>
-                            <a href="/">Link 2</a>
-                            <a href="/">Link 3</a> -->
+                                        <a href="/">Link 2</a>
+                                        <a href="/">Link 3</a> -->
             <div class="row">
                 <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
                     <router-link :to="`/videos/`+video.id">
-                        <div class="column-left">
-                            {{video.title}}
-                        </div>
-                        
-                        <div class="column-right">
-                            {{video.num}}
-                        </div>
+                        <subrow>
+                            <div class="column-left">
+                                Video Title
+                            </div>
+                        </subrow>
+                        <subrow>
+                            <div class="column-right">
+                                Comments #
+                            </div>
+                        </subrow>
+    
+                    </router-link>
+                </div>
+            </div>
+            <div class="row">
+                <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
+                    <router-link :to="`/videos/`+video.id">
+                        <subrow>
+                            <div class="column-left">
+                                {{video.title}}
+                            </div>
+                        </subrow>
+                        <subrow>
+                            <div class="column-right">
+                                {{video.num}}
+                            </div>
+                        </subrow>
+    
                     </router-link>
                 </div>
             </div>
@@ -91,9 +112,10 @@
         text-align: left;
     }
     
+    
     /* .dropdown-content-list:hover {
-        background-color: #ddd;
-    } */
+                    background-color: #ddd;
+                } */
     
     .dropdown:hover .dropdown-content {
         display: block;
@@ -104,13 +126,19 @@
     
     .column-left {
         float: left;
-        width: 90%;
+        white-space: nowrap;
+        /* border-bottom: 1px solid #e9e9e9;
+        border-right: 1px solid #e9e9e9; */
         /* padding: 10px; */
         /* Should be removed. Only for demonstration */
     }
+    
     .column-right {
         float: right;
-        width: 10%;
+        width: 100px;
+        /* border-bottom: 1px solid #e9e9e9; */
+        border-left: 2px solid #e9e9e9;
+        text-align: right;
     }
     
     
@@ -121,9 +149,15 @@
         display: table;
         clear: both;
     }
-
+    
+    .subrow:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
     .vl {
-    border-left: 6px solid green;
-    height: 16px;
-}
+        border-left: 6px solid green;
+        height: 16px;
+    }
 </style>
