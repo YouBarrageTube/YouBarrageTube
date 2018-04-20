@@ -1,6 +1,6 @@
 var http = require('http');
 var createHandler = require('github-webhook-handler');
-var handler = createHandler({path: '/', secret: 'youbarragetube'}) t
+var handler = createHandler({path: '/', secret: 'youbarragetube'});
 
 //same settings in github
 function run_cmd(cmd, args, callback) {
