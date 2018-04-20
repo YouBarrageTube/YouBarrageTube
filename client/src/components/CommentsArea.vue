@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-    <p v-for="comment in comments" 
-    :key = "comment.id">{{comment.comment}}</p>
-    <p v-for="comment in addedComment" 
-    :key = "comment.id">{{comment}}</p>
+    <div class = "comments">
+      <p class="comment" v-for="comment in comments" 
+      :key = "comment.id">{{comment.comment}}</p>
+      <p class="comment" v-for="comment in addedComment" 
+      :key = "comment.id">{{comment}}</p>
+    </div>
     <input v-model="newComment" type="text">
     <button @click = "onSubmit">Submit</button>
   </div>
@@ -32,9 +34,17 @@ export default {
 
 <style scoped>
 .container {
-  /* display: inline-block; */
-  display:table-cell;
-  width: 19%;
+  display: inline-block;
+  width:29%;
   background-color: white;
+}
+.comments{
+  overflow: scroll;
+}
+.comment{
+  margin:0;
+  padding: 0;
+  width: 100%;
+  border-bottom:2px solid gray;
 }
 </style>
