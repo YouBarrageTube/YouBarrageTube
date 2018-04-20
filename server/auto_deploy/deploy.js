@@ -1,35 +1,15 @@
-var http = require('http')
-var createHandler = require('github-webhook-handler')
-var handler = createHandler({ path: '/pastreceive', secret: 'youbarragetube' })
-//same settings in github
-function run_cmd(cmd, args, callback) {
-  var spawn = require('child_process').spawn;
-  var child = spawn(cmd, args);
-  var resp = "";
-  child.stdout.on('data', function(buffer) { resp += buffer.toString(); });
-  child.stdout.on('end', function() { callback (resp) });
-}
-http.createServer(function (req, res) {
-  handler(req, res, function (err) {
-    res.statusCode = 404;
-    res.end('no such location')
-  })
-}).listen(7777);
-handler.on('error', function (err) {
-  console.error('Error:', err.message)
+var githubhook = require('githubhook');
+// configure listener for github changes
+var github = githubhook({/* options */
+  port: 7777,
+  path: "/postreceive",
+  secret: "youbarragetube"
 });
-handler.on('push', function (event) {
-  console.log('Received a push event for %s to %s',
-    event.payload.repository.name,
-    event.payload.ref);
-  run_cmd('sh', ['./deploy-dev.sh'], function(text){ console.log(text) });
+
+// listen to push on github on branch master
+github.on('push', function (repo, ref, data) {
+  console.log('receive a push event');
 });
-/*
-handler.on('issues', function (event) {
-console.log('Received an issue event for % action=%s: #%d %s',
-event.payload.repository.name,
-event.payload.action,
-event.payload.issue.number,
-event.payload.issue.title)
-})
-*/
+
+// listen to github push
+github.listen();
