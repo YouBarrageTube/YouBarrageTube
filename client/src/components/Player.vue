@@ -31,7 +31,8 @@ export default {
         Math.floor(that.player.player.getCurrentTime())
       );
     }, 1000);
-    console.log(this.player.player.getIframe().getElementsByTagName('video'));
+    var doc=this.player.player.getIframe().contentDocument;
+    console.log(this.player.player.getIframe());
   },
   beforeDestroy(){
       this.player.player.destroy();

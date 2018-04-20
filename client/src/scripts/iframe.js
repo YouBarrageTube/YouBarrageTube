@@ -73,7 +73,8 @@ var iframe = function(el, id, height, width, parent) {
       disablekb: 0,
       fs: 0,
       showinfo: 0,
-      rel: 0
+      rel: 0,
+      playsinline: 1
     },
     events: {
       onStateChange: parent.onPlayerStateChange
