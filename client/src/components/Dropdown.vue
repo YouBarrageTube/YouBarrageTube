@@ -38,6 +38,9 @@
 
 <style scoped>
     /* Dropdown menu */
+    a {
+        text-decoration: none;
+    }
     
     .dropdown {
         float: right;

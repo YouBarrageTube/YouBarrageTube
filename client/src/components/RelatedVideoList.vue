@@ -2,9 +2,7 @@
     <div class='row-list'>
         <div class="gallery" v-for="video in videos" :key="video.id">
             <router-link :to="`/videos/`+video.id">
-                <a :href='video.id'>
-                    <img :src="video.thumbnail" alt="video image">
-                </a>
+                <img :src="video.thumbnail" alt="video image">
                 <div class="desc">{{video.title}}</div>
             </router-link>
         </div>
@@ -12,8 +10,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+    import axios from 'axios'
+    
     export default {
         name: 'RelatedVideoList',
         data: function() {
@@ -25,13 +23,13 @@ import axios from 'axios'
         props: [
             'videoID'
         ],
-        watch:{
-            '$route.params.id': function(newID){
+        watch: {
+            '$route.params.id': function(newID) {
                 this.id = this.$route.params.id;
                 axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=10`)
-                .then(response => this.videos = response.data)
-                .catch(error => console.log(error));
-
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+    
             }
         },
         mounted: function() {
@@ -44,6 +42,10 @@ import axios from 'axios'
 
 
 <style scoped>
+    a {
+        text-decoration: none;
+    }
+    
     div.row-list {
         margin-left: 12%;
         margin-right: 12%;
@@ -58,7 +60,7 @@ import axios from 'axios'
         margin-bottom: 3%;
         margin-top: 3%;
     }
-
+    
     div.gallery:nth-child(3n+3) {
         margin-right: 0%;
     }

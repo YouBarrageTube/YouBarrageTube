@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 body {
   margin: 0;
   padding: 0;
@@ -18,7 +18,7 @@ body {
 }
 
 body {
-  background-color: gray;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 </style>

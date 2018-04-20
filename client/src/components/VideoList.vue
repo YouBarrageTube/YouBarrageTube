@@ -2,9 +2,8 @@
     <div class='row-list'>
         <div class="gallery" v-for="video in videos" :key="video.id">
             <router-link :to="`/videos/`+video.id">
-                <a :href='video.id'>
-                    <img :src="video.thumbnail" alt="video image">
-                </a>
+    
+                <img :src="video.thumbnail" alt="video image">
                 <div class="desc">{{video.title}}</div>
             </router-link>
         </div>
@@ -35,7 +34,7 @@
                 // console.log(this.videos);
                 this.videos = this.searchResult;
             },
-            '$route.query.keyword': function(){
+            '$route.query.keyword': function() {
                 this.query = this.$route.query.keyword;
                 axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
                     .then(response => this.videos = response.data)
@@ -67,6 +66,10 @@
 
 
 <style scoped>
+    a {
+        text-decoration: none;
+    }
+    
     div.row-list {
         margin-left: 12%;
         margin-right: 12%;

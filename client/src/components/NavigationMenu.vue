@@ -36,7 +36,8 @@
             }
         },
         components: {
-            'dropdown': Dropdown
+            'dropdown': Dropdown,
+            'fontawesome': fontawesome
         }
     }
 </script>
@@ -52,9 +53,14 @@
         font-family: Arial, Helvetica, sans-serif;
     }
     
+    a {
+        text-decoration: none;
+    }
+    
     .topnav {
         overflow: hidden;
         background-color: #e9e9e9;
+        font-family: Arial, Helvetica, sans-serif;
     }
     
     .topnav a {

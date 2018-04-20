@@ -20,9 +20,10 @@ export default {
 <style scoped>
 .container {
   margin: auto;
-  width: 80%;
+  width: 60%;
   border: 3px solid green;
   padding: 10px;
   margin-bottom: 3%;
+  margin-top: 3%;
 }
 </style>
