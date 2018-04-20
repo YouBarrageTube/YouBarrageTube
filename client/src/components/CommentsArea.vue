@@ -6,8 +6,10 @@
       <p class="comment" v-for="comment in addedComment" 
       :key = "comment.id">{{comment}}</p>
     </div>
-    <input v-model="newComment" type="text">
-    <button @click = "onSubmit">Submit</button>
+    <div class="input">
+      <input v-model="newComment" type="text">
+      <button @click = "onSubmit">Submit</button>
+    </div>
   </div>
 </template>
 
@@ -34,17 +36,26 @@ export default {
 
 <style scoped>
 .container {
-  display: inline-block;
-  width:29%;
-  background-color: white;
+  float: left;
+  /* display: inline-block; */
+  height: 100%;
+  width: 29%;
 }
-.comments{
+.comments {
+  display: block;
+  height: 90%;
+  width: 100%;
   overflow: scroll;
 }
-.comment{
-  margin:0;
-  padding: 0;
+.input{
+  display:block;
+  height:10%;
+}
+.comment {
+  margin: 0;
+  padding: 2px;
   width: 100%;
-  border-bottom:2px solid gray;
+  border-bottom: 1px solid #e9e9e9;
+  text-indent: 0.5em;
 }
 </style>
