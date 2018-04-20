@@ -31,10 +31,9 @@ export default {
         Math.floor(that.player.player.getCurrentTime())
       );
     }, 1000);
-    console.log(this.player.player.getIframe());
+    console.log(this.player.player.getIframe().getElementsByTagName('video'));
   },
   beforeDestroy(){
-      console.log('hahahaha');
       this.player.player.destroy();
   }
 };
