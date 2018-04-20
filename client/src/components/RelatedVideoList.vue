@@ -52,12 +52,13 @@ import axios from 'axios'
     div.gallery {
         border: 1px solid #ccc;
         float: left;
-        width: 25%;
-        margin-right: 12.2%;
+        width: 24%;
+        margin-right: 5%;
+        margin-left: 5%;
         margin-bottom: 3%;
         margin-top: 3%;
     }
-    
+
     div.gallery:nth-child(3n+3) {
         margin-right: 0%;
     }
