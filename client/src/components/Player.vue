@@ -15,6 +15,7 @@ export default {
     }
   },
   mounted() {
+    console.log('mounted');
     this.player = new iframe(
       this.$el,
       this.videoId,
@@ -30,6 +31,11 @@ export default {
         Math.floor(that.player.player.getCurrentTime())
       );
     }, 1000);
+    console.log(this.player.player.getIframe());
+  },
+  beforeDestroy(){
+      console.log('hahahaha');
+      this.player.player.destroy();
   }
 };
 </script>

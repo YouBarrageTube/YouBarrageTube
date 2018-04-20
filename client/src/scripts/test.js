@@ -1,0 +1,1 @@
+console.log('load from other file');
