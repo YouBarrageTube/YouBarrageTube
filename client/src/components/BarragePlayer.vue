@@ -169,7 +169,7 @@ export default {
   position: absolute;
   color: white;
   left: 100%;
-  /* width: 100%; */
+  width: 100%;
   animation: wordmove 10s linear;
 }
 
