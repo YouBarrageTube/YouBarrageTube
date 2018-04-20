@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%; position:relative">
+    <div style="width:100%; height:100%; position:relative">
         <div class="player-container">
             <player :isPlaying="isPlaying" :videoId="videoId" :playerWidth="playerWidth" :playerHeight="playerHeight" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
             <p class="comment" v-for="comment in currentComments" :class="{pause: !isPlaying}" :key="comment.id" :style="{top: comment.height + '%'}">{{comment.comment}}</p>
@@ -84,7 +84,7 @@ export default {
         allComments[i].videoTime <= currentTime
       ) {
         currentComments.push(allComments[i]);
-        allComments[i].height = Math.floor(Math.random() * 19) * 5;
+        allComments[i].height = Math.floor(Math.random() * 16) * 5 + 5;
         i++;
       }
       //   while(currentComments[0] && (currentTime - currentComments[0].videoTime >= 15) ){
@@ -153,20 +153,23 @@ export default {
 
 <style scoped>
 .player-container {
+  float:left;
   position: relative;
-  display:inline-block;
+  /* display:inline-block; */
+  height:100%;
   width: 70%;
   overflow: hidden;
 }
 
 .comment {
   pointer-events: none;
+  font-size: 1.15em;
   z-index: 100;
-  display: block;
+  display: inline-block;
   position: absolute;
   color: white;
   left: 100%;
-  width: 100%;
+  /* width: 100%; */
   animation: wordmove 10s linear;
 }
 
