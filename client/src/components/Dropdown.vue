@@ -91,9 +91,9 @@
         text-align: left;
     }
     
-    .dropdown-content-list:hover {
+    /* .dropdown-content-list:hover {
         background-color: #ddd;
-    }
+    } */
     
     .dropdown:hover .dropdown-content {
         display: block;
