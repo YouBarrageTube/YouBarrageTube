@@ -29,7 +29,7 @@
         </div>
         <div class='to-apply'>
             <h2>To apply:</h2>
-            <p>send email to: YouBarrageTube@gmail.com</p>
+            <p>Send email to: <a href="mailto:YouBarrageTube" target="_top">YouBarrageTube@gmail.com</a></p>
         </div>
     </div>
 </template>
