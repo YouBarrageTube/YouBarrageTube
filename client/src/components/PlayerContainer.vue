@@ -23,7 +23,6 @@ export default {
   width: 60vw;
   height: 50vh;
   border: 3px solid #e9e9e9;
-  margin-bottom: 3%;
   margin-top: 3%;
 }
 </style>

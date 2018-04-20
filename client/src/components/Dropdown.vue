@@ -4,15 +4,23 @@
         <button class="dropbtn">Top 10</button>
         <div class="dropdown-content">
             <!-- <router-link :to="`/videos/`+video.id">
-                {{video.title}}:{{video.num}}
-            </router-link> -->
+                            {{video.title}}:{{video.num}}
+                        </router-link> -->
             <!-- <a href="/">VideonameVideonameVideonameVideoname</a>
-                <a href="/">Link 2</a>
-                <a href="/">Link 3</a> -->
-            <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
-                <router-link :to="`/videos/`+video.id">
-                    {{video.title}}:{{video.num}}
-                </router-link>
+                            <a href="/">Link 2</a>
+                            <a href="/">Link 3</a> -->
+            <div class="row">
+                <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
+                    <router-link :to="`/videos/`+video.id">
+                        <div class="column-left">
+                            {{video.title}}
+                        </div>
+                        
+                        <div class="column-right">
+                            {{video.num}}
+                        </div>
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
@@ -38,6 +46,7 @@
 
 <style scoped>
     /* Dropdown menu */
+    
     a {
         text-decoration: none;
     }
@@ -89,4 +98,32 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
+    
+    
+    /* Create two equal columns that floats next to each other */
+    
+    .column-left {
+        float: left;
+        width: 90%;
+        /* padding: 10px; */
+        /* Should be removed. Only for demonstration */
+    }
+    .column-right {
+        float: right;
+        width: 10%;
+    }
+    
+    
+    /* Clear floats after the columns */
+    
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .vl {
+    border-left: 6px solid green;
+    height: 16px;
+}
 </style>
