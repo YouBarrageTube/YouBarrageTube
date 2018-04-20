@@ -34,14 +34,14 @@
             // },
             '$route.query.keyword': function(){
                 this.query = this.$route.query.keyword;
-                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
                 .then(response => this.videos = response.data)
                 .catch(error => console.log(error));
             }
         },
         mounted: function() {
             this.query = this.$route.query.keyword;
-            axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+            axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
                 .then(response => this.videos = response.data)
                 .catch(error => console.log(error));
         }

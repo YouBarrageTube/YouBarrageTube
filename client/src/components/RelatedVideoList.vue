@@ -26,14 +26,14 @@
         watch: {
             '$route.params.id': function(newID) {
                 this.id = this.$route.params.id;
-                axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=10`)
+                axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21`)
                     .then(response => this.videos = response.data)
                     .catch(error => console.log(error));
     
             }
         },
         mounted: function() {
-            axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=10`)
+            axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21`)
                 .then(response => this.videos = response.data)
                 .catch(error => console.log(error));
         }
