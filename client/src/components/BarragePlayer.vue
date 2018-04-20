@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%">
+    <div style="width:100%; position:relative">
         <div class="player-container">
             <player :isPlaying="isPlaying" :videoId="videoId" :playerWidth="playerWidth" :playerHeight="playerHeight" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
             <p class="comment" v-for="comment in currentComments" :class="{pause: !isPlaying}" :key="comment.id" :style="{top: comment.height + '%'}">{{comment.comment}}</p>
@@ -154,9 +154,8 @@ export default {
 <style scoped>
 .player-container {
   position: relative;
-  /* display: inline-block; */
-  display:table-cell;
-  width: 80%;
+  display:inline-block;
+  width: 70%;
   overflow: hidden;
 }
 
