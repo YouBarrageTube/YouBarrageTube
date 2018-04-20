@@ -32,7 +32,8 @@ export default {
 
 <style scoped>
 .container {
-  display: inline-block;
+  /* display: inline-block; */
+  display:table-cell;
   width: 19%;
   background-color: white;
 }

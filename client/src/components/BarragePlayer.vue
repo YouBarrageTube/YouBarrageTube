@@ -154,7 +154,8 @@ export default {
 <style scoped>
 .player-container {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
+  display:table-cell;
   width: 80%;
   overflow: hidden;
 }
