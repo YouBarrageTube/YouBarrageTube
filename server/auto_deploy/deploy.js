@@ -1,5 +1,5 @@
-var http = require('http')
-var createHandler = require('github-webhook-handler')
+var http = require('http');
+var createHandler = require('github-webhook-handler');
 var handler = createHandler({path: '/', secret: 'youbarragetube'})
 
 //same settings in github
@@ -20,7 +20,7 @@ http.createServer(function (req, res) {
     res.statusCode = 404;
     res.end('no such location')
   })
-}).listen(7777);
+}).listen(3001);
 
 handler.on('error', function (err) {
   console.error('Error:', err.message)
@@ -30,7 +30,7 @@ handler.on('push', function (event) {
   console.log('Received a push event for %s to %s',
     event.payload.repository.name,
     event.payload.ref);
-  run_cmd('sh', ['./deploy-dev.sh'], function (text) {
+  run_cmd('sh', ['./deploy.sh'], function (text) {
     console.log(text)
   });
 });
@@ -41,4 +41,4 @@ handler.on('issues', function (event) {
     event.payload.action,
     event.payload.issue.number,
     event.payload.issue.title)
-})
+});
