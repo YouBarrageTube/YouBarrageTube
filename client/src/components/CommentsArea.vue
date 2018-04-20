@@ -11,30 +11,29 @@
 
 <script>
 export default {
-  name :'CommentsArea',
-  props:['comments'],
-  data: function(){
-    return{
-      newComment: '',
-      addedComment:[],
+  name: "CommentsArea",
+  props: ["comments"],
+  data: function() {
+    return {
+      newComment: "",
+      addedComment: []
     };
   },
   methods: {
-    onSubmit: function(){
-      this.$emit('onNewComment', this.newComment);
+    onSubmit: function() {
+      this.$emit("onNewComment", this.newComment);
       this.addedComment.push(this.newComment);
       console.log(this.addedComment);
-      this.newComment = '';
+      this.newComment = "";
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.container{
+.container {
   display: inline-block;
   width: 19%;
   background-color: white;
-  
 }
 </style>
