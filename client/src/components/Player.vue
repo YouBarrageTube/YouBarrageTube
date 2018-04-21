@@ -31,10 +31,10 @@ export default {
         Math.floor(that.player.player.getCurrentTime())
       );
     }, 1000);
+    var doc=this.player.player.getIframe().contentDocument;
     console.log(this.player.player.getIframe());
   },
   beforeDestroy(){
-      console.log('hahahaha');
       this.player.player.destroy();
   }
 };
