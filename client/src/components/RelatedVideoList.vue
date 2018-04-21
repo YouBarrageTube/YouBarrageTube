@@ -44,6 +44,13 @@
 <style scoped>
     a {
         text-decoration: none;
+        color: black;
+        line-height: 1.5;
+        font-size: 1vw;
+    }
+    
+    a:visited {
+        color: gray;
     }
     
     div.row-list {
@@ -52,13 +59,13 @@
     }
     
     div.gallery {
-        border: 1px solid #ccc;
+        border: 1px solid white;
         float: left;
         width: 24%;
         margin-right: 5%;
         margin-left: 5%;
-        margin-bottom: 3%;
-        margin-top: 3%;
+        margin-bottom: 1%;
+        margin-top: 1%;
     }
     
     div.gallery:nth-child(3n+3) {
@@ -66,7 +73,7 @@
     }
     
     div.gallery:hover {
-        border: 1px solid #777;
+        border: 1px solid #e9e9e9;
     }
     
     div.gallery img {
@@ -77,6 +84,6 @@
     div.desc {
         padding: 5%;
         text-align: center;
-        height: 40px;
+        height: 4vw;
     }
 </style>
