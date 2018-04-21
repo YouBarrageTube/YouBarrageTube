@@ -32,20 +32,20 @@
         },
         mounted: function() {
             // For testing
-            $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/videos.json')
-                .done(data => {
-                    this.videos = data;
-                })
-            // if (this.query === undefined || this.query.length == 0) {
-            //     axios.get('/v1/video/popular?resultNum=21')
-            //         .then(response => this.videos = response.data)
-            //         .catch(error => console.log(error));
-            // } else {
-            //     console.log('set to search result');
-            //     axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
-            //         .then(response => this.videos = response.data)
-            //         .catch(error => console.log(error));
-            // }
+            // $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/videos.json')
+            //     .done(data => {
+            //         this.videos = data;
+            //     })
+            if (this.query === undefined || this.query.length == 0) {
+                axios.get('/v1/video/popular?resultNum=21')
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+            } else {
+                console.log('set to search result');
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
+                    .then(response => this.videos = response.data)
+                    .catch(error => console.log(error));
+            }
         }
     }
 </script>
