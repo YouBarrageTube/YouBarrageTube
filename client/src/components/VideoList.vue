@@ -31,6 +31,11 @@
             }
         },
         mounted: function() {
+            // For testing
+            // $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/videos.json')
+            //     .done(data => {
+            //         this.videos = data;
+            //     })
             if (this.query === undefined || this.query.length == 0) {
                 axios.get('/v1/video/popular?resultNum=21')
                     .then(response => this.videos = response.data)
@@ -41,7 +46,6 @@
                     .then(response => this.videos = response.data)
                     .catch(error => console.log(error));
             }
-    
         }
     }
 </script>
@@ -50,6 +54,13 @@
 <style scoped>
     a {
         text-decoration: none;
+        color: black;
+        line-height: 1.5;
+        font-size: 1vw;
+    }
+    
+    a:visited {
+        color: gray;
     }
     
     div.row-list {
@@ -58,7 +69,7 @@
     }
     
     div.gallery {
-        border: 1px solid #ccc;
+        border: 1px solid white;
         float: left;
         width: 24%;
         margin-right: 5%;
@@ -72,7 +83,7 @@
     }
     
     div.gallery:hover {
-        border: 1px solid #777;
+        border: 1px solid #e9e9e9;
     }
     
     div.gallery img {
