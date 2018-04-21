@@ -5,8 +5,6 @@
             <h2>{{member.name}}</h2>
             <h2>{{member.title}}</h2>
         </div>
-    
-    
     </div>
 </template>
 

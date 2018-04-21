@@ -3,12 +3,6 @@
     <div class="dropdown">
         <button class="dropbtn">Top 10</button>
         <div class="dropdown-content">
-            <!-- <router-link :to="`/videos/`+video.id">
-                                            {{video.title}}:{{video.num}}
-                                        </router-link> -->
-            <!-- <a href="/">VideonameVideonameVideonameVideoname</a>
-                                            <a href="/">Link 2</a>
-                                            <a href="/">Link 3</a> -->
             <div class="row">
                 <div class="dropdown-content-list">
                     <subrow>
@@ -111,8 +105,8 @@
     
     
     /* .dropdown-content-list:hover {
-                        background-color: #ddd;
-                    } */
+                            background-color: #ddd;
+                        } */
     
     .dropdown:hover .dropdown-content {
         display: block;
@@ -125,7 +119,7 @@
         float: left;
         white-space: nowrap;
         /* border-bottom: 1px solid #e9e9e9;
-            border-right: 1px solid #e9e9e9; */
+                border-right: 1px solid #e9e9e9; */
         /* padding: 10px; */
         /* Should be removed. Only for demonstration */
     }

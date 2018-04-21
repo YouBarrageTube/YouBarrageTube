@@ -3,7 +3,6 @@
         <navigation-menu/>
         <!--go to barrageplayer container later to format-->
         <player-container :videoId="$route.params.id"></player-container>
-        
         <related-video-list></related-video-list>
     </div>
 </template>

@@ -2,13 +2,10 @@
     <div class='row-list'>
         <div class="gallery" v-for="video in videos" :key="video.id">
             <router-link :to="`/videos/`+video.id">
-    
                 <img :src="video.thumbnail" alt="video image">
                 <div class="desc">{{video.title}}</div>
             </router-link>
         </div>
-    
-    
     </div>
 </template>
 
@@ -23,41 +20,26 @@
             };
         },
         props: [
-            'query',
-            'searchResult'
+            'query'
         ],
         watch: {
-            searchResult: function() {
-                // console.log('search result change in videolist');
-                // console.log(this.searchResult);
-                // console.log('video in watch function');
-                // console.log(this.videos);
-                this.videos = this.searchResult;
-            },
             '$route.query.keyword': function() {
                 this.query = this.$route.query.keyword;
-                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
                     .then(response => this.videos = response.data)
                     .catch(error => console.log(error));
             }
         },
         mounted: function() {
-            // console.log('searchResult');
-            // console.log(this.searchResult);
-            // console.log('query in video list');
-            // console.log(this.query);
-            // if (this.searchResult === undefined || this.searchResult.length == 0){
-    
             if (this.query === undefined || this.query.length == 0) {
                 axios.get('/v1/video/popular?resultNum=21')
                     .then(response => this.videos = response.data)
                     .catch(error => console.log(error));
             } else {
                 console.log('set to search result');
-                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=10`)
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
                     .then(response => this.videos = response.data)
                     .catch(error => console.log(error));
-                // this.videos = this.searchResult;
             }
     
         }
