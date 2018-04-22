@@ -47,6 +47,23 @@
                     }
                 ]
             };
+        },
+        mounted: function() {
+            // set text the same length
+            var max_length = 0;
+            for (var mem in this.members){
+                max_length = this.members[mem].description.length;
+                console.log(this.members[mem].description.length);
+            }
+            console.log(max_length);
+            for (var mem in this.members){
+                this.members[mem].description = this.members[mem].description.padEnd(max_length);
+                console.log(this.members[mem].description);
+            }
+            for (var mem in this.members){
+                max_length = this.members[mem].description.length;
+                console.log(this.members[mem].description.length);
+            }
         }
     }
 </script>
