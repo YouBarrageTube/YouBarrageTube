@@ -2,7 +2,7 @@
     <div class='profiles'>
         <div class="card" v-for="member in members" :key="member.name">
             <img :src="member.photo" alt="member image">
-            <h2>{{member.name}}</h2>
+            <p style="font-size:20px;">{{member.name}}</p>
             <p class="title">{{member.title}}</p>
             <p v-for="edu in member.education" :key="edu">{{edu}}</p>
             <hr>
@@ -71,7 +71,6 @@
     .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         width: 30%;
-        height: 100%;
         max-width: 500px;
         margin: auto;
         text-align: center;
@@ -80,10 +79,9 @@
         margin: 10%;
     }
     
-    
-    /* .card img {
-                width: 50%
-            } */
+    .card img {
+        width: 45%
+    }
     
     .title {
         color: grey;
@@ -114,38 +112,44 @@
         opacity: 0.7;
     }
     
+    @media screen and (max-width: 600px) {
+        .card {
+            float: none;
+            width: 80%;
+        }
+    }
     
     /* div.row-list {
-                margin-left: 12%;
-                margin-right: 12%;
-            }
-            
-            div.gallery {
-                border: 1px solid #ccc;
-                float: left;
-                width: 40%;
-                margin-right: 12.2%;
-                margin-bottom: 3%;
-                margin-top: 3%;
-            }
-            
-            div.gallery:nth-child(2n+2) {
-                margin-right: 0%;
-            }
-            
-            div.gallery:hover {
-                border: 1px solid #777;
-            }
-            
-            div.gallery img {
-                width: 50%;
-                height: auto;
-                float: left;
-            }
-            
-            div.desc {
-                padding: 5%;
-                text-align: center;
-                height: 40px;
-            } */
+                    margin-left: 12%;
+                    margin-right: 12%;
+                }
+                
+                div.gallery {
+                    border: 1px solid #ccc;
+                    float: left;
+                    width: 40%;
+                    margin-right: 12.2%;
+                    margin-bottom: 3%;
+                    margin-top: 3%;
+                }
+                
+                div.gallery:nth-child(2n+2) {
+                    margin-right: 0%;
+                }
+                
+                div.gallery:hover {
+                    border: 1px solid #777;
+                }
+                
+                div.gallery img {
+                    width: 50%;
+                    height: auto;
+                    float: left;
+                }
+                
+                div.desc {
+                    padding: 5%;
+                    text-align: center;
+                    height: 40px;
+                } */
 </style>
