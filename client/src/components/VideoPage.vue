@@ -2,7 +2,9 @@
     <div>
         <navigation-menu/>
         <!--go to barrageplayer container later to format-->
-        <p>{{title}}</p>
+        <div style="text-align: center">
+            <h3>{{title}}</h3>
+        </div>
         <player-container :videoId="$route.params.id"></player-container>
         <related-video-list></related-video-list>
     </div>
@@ -13,7 +15,7 @@
     import NavigationMenu from './NavigationMenu'
     import RelatedVideoList from './RelatedVideoList'
     import axios from 'axios'
-
+    
     export default {
         name: 'VideoPage',
         data: function() {
