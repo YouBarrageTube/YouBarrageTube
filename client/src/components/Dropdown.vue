@@ -5,32 +5,51 @@
         <div class="dropdown-content">
             <div class="row">
                 <div class="dropdown-content-list">
-                    <subrow>
-                        <div class="column-left">
-                            Video Title
-                        </div>
-                    </subrow>
-                    <subrow>
-                        <div class="column-right">
-                            Comments #
-                        </div>
-                    </subrow>
+                    <!-- <subrow>
+                                <div class="column-left">
+                                    Video Title
+                                </div>
+                            </subrow>
+                            <subrow>
+                                <div class="column-right">
+                                    Comments #
+                                </div>
+                            </subrow> -->
+    
+                    <span>
+                                Video Title
+                            </span>
+                    <span style="float: right;">
+                                Comments #
+                            </span>
                 </div>
             </div>
             <div class="row">
                 <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
                     <router-link :to="`/videos/`+video.id">
-                        <subrow>
-                            <div class="column-left">
-                                {{video.title}}
-                            </div>
-                        </subrow>
-                        <subrow>
-                            <div class="column-right">
-                                {{video.num}}
-                            </div>
-                        </subrow>
-    
+                        <!-- <subrow>
+                                        <div class="column-left">
+                                            {{video.title}}
+                                        </div>
+                                    </subrow>
+                                    <subrow>
+                                        <div class="column-right">
+                                            {{video.num}}
+                                        </div>
+                                    </subrow> -->
+                        <!-- <span>
+                                <img :src="video.thumbnail" alt="video image" width="42" height="42">
+                            </span> -->
+                        <span>
+                                        <img :src="video.thumbnail" alt="video image" width="42" height="42" align="middle">
+                                        <span class="text" style="float: none;">
+                                            {{video.title}}
+                                            </span>
+                                            <span class="text">
+                                        {{video.num}}
+                                    </span>
+                        </span>
+                        
                     </router-link>
                 </div>
             </div>
@@ -49,6 +68,12 @@
             };
         },
         mounted: function() {
+            // var that = this;
+            // $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/top10.json')
+            //     .done(data => {
+            //         console.log(data);
+            //         that.top10 = data;
+            //     })
             axios.get(`/v1/video/top10Comments`)
                 .then(response => this.top10 = response.data)
                 .catch(error => console.log(error));
@@ -58,6 +83,12 @@
 
 <style scoped>
     /* Dropdown menu */
+    span .text {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 5px;
+        float: right;
+    }
     
     a {
         text-decoration: none;
@@ -105,8 +136,8 @@
     
     
     /* .dropdown-content-list:hover {
-                            background-color: #ddd;
-                        } */
+                                        background-color: #ddd;
+                                    } */
     
     .dropdown:hover .dropdown-content {
         display: block;
@@ -119,7 +150,7 @@
         float: left;
         white-space: nowrap;
         /* border-bottom: 1px solid #e9e9e9;
-                border-right: 1px solid #e9e9e9; */
+                            border-right: 1px solid #e9e9e9; */
         /* padding: 10px; */
         /* Should be removed. Only for demonstration */
     }
@@ -151,7 +182,7 @@
         border-left: 6px solid green;
         height: 16px;
     }
-
+    
     @media screen and (max-width: 600px) {
         .dropdown {
             float: none;
