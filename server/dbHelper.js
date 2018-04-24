@@ -73,7 +73,7 @@ function addOneRecord(videoId) {
         });
       }
       else {
-        videlHelper.searchById(videoId, function (response) {
+        videlHelper.getById(videoId, function (response) {
           // add new record with one comment num
           var newValues = response;
           newValues._id = newValues.id;
