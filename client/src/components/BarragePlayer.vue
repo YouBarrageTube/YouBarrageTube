@@ -75,8 +75,8 @@ export default {
         //   console.log(error);
         // });
       this.loadComment();
-      newComment.duration = this.randomSpeed();
-      this.currentComments.push(newComment);
+      //newComment.duration = this.randomSpeed();
+      //this.currentComments.push(newComment);
     },
 
     updateCurrentComments: function(currentTime) {

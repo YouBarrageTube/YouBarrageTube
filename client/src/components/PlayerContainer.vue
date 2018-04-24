@@ -21,7 +21,7 @@
     margin: auto;
     width: 60vw;
     height: 50vh;
-    border: 3px solid #e9e9e9;
+    border: 1px solid #e9e9e9;
     margin-top: 1%;
     margin-bottom: 1%;
   }
