@@ -32,8 +32,16 @@
         watch: {
             '$route.query.keyword': function() {
                 this.query = this.$route.query.keyword;
-                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
-                    .then(response => this.videos = response.data)
+                this.prevPageToken = "";
+                this.nextPageToken = "";
+                console.log("query changed");
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        console.log(response.data);
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
                     .catch(error => console.log(error));
             }
         },
@@ -49,11 +57,11 @@
                 //     })
 
                 if(this.prevPageToken !== "" && this.nextPageToken === ""){
-                    this.message = "Already the last Page";
+                    this.message = "";
                 }else{
                     axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
                     .then(response => {
-                        this.videos = response.data.videos;
+                        this.videos = this.videos.concat(response.data.videos);
                         this.nextPageToken = response.data.nextPageToken;
                         this.prevPageToken = response.data.prevPageToken;
                     })
@@ -78,7 +86,6 @@
                     })
                     .catch(error => console.log(error));
             } else {
-                console.log('set to search result');
                 axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21&pageToken=${this.nextPageToken}`)
                     .then(response => {
                         this.videos = response.data.videos;
