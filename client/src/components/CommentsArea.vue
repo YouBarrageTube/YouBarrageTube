@@ -3,8 +3,6 @@
     <div class = "comments">
       <p class="comment" v-for="comment in comments" 
       :key = "comment.id">{{comment.comment}}</p>
-      <p class="comment" v-for="comment in addedComment" 
-      :key = "comment.id">{{comment}}</p>
     </div>
     <div class="input">
       <input v-model="newComment" type="text">
@@ -20,14 +18,11 @@ export default {
   data: function() {
     return {
       newComment: "",
-      addedComment: []
     };
   },
   methods: {
     onSubmit: function() {
       this.$emit("onNewComment", this.newComment);
-      this.addedComment.push(this.newComment);
-      console.log(this.addedComment);
       this.newComment = "";
     }
   }
@@ -51,6 +46,17 @@ export default {
   display:block;
   height:10%;
 }
+
+input{
+  box-sizing: border-box;
+  display:inline-block;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  height:100%;
+  width: 70%;
+}
+
 .comment {
   margin: 0;
   padding: 2px;
