@@ -23,10 +23,17 @@
                                 <span class="title-small" style="float: none;">
                                     {{video.title}}
                                 </span>
-                            </div>                            
+                            </div>        
+
                             <span class="num">
                                 {{video.num}}
                             </span>
+
+                            <div class="small" style="width: 20%">
+                                <span style="float: right;">
+                                    {{video.num}}
+                                </span>
+                            </div>    
                         </span>
                     </router-link>
                 </div>
@@ -145,9 +152,7 @@
         text-align: right;
     }
     
-    
     /* Clear floats after the columns */
-    
     .row:after {
         content: "";
         display: table;
@@ -164,6 +169,10 @@
         border-left: 6px solid green;
         height: 16px;
     }
+
+    @media screen and (max-width: 800px) {
+
+    }
     
     @media screen and (max-width: 600px) {
         .dropdown {
@@ -177,6 +186,9 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+        span .num {
+            display: none;
         }
         span .title-small {
             display: block;
