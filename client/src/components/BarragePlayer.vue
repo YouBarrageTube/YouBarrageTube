@@ -74,10 +74,10 @@ export default {
         // .catch(function(error) {
         //   console.log(error);
         // });
+      this.updateCurrentComments(this.currentTime);  
       this.currentIndex++;
       newComment.duration = this.randomSpeed();
       this.currentComments.push(newComment);
-      this.updateCurrentComments(this.currentTime);
       this.loadComment();
     },
 
