@@ -1,7 +1,7 @@
 <template>
     <div>
         <navigation-menu/>
-        <h1 align="center">We are hiring!!!</h1>
+        <h1 align="center">Meet with Our Team!</h1>
         <profile></profile>
     </div>
 </template>

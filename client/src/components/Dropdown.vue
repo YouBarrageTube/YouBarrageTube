@@ -151,4 +151,13 @@
         border-left: 6px solid green;
         height: 16px;
     }
+
+    @media screen and (max-width: 600px) {
+        .dropdown {
+            float: none;
+        }
+        .dropdown-content {
+            left: 0;
+        }
+    }
 </style>
