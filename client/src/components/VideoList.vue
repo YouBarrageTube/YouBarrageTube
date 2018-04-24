@@ -53,9 +53,9 @@
                 }else{
                     axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
                     .then(response => {
-                        this.videos = response.data;
-                        this.nextPageToken = response.nextPageToken;
-                        this.prevPageToken = response.prevPageToken;
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
                     })
                     .catch(error => console.log(error));
                     this.message = "";
@@ -72,18 +72,18 @@
             if (this.query === undefined || this.query.length == 0) {
                 axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
                     .then(response => {
-                        this.videos = response.data;
-                        this.nextPageToken = response.nextPageToken;
-                        this.prevPageToken = response.prevPageToken;
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
                     })
                     .catch(error => console.log(error));
             } else {
                 console.log('set to search result');
                 axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21&pageToken=${this.nextPageToken}`)
                     .then(response => {
-                        this.videos = response.data;
-                        this.nextPageToken = response.nextPageToken;
-                        this.prevPageToken = response.prevPageToken;
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
                     })
                     .catch(error => console.log(error));
             }
