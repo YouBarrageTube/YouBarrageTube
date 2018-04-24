@@ -49,7 +49,7 @@ export default {
           }
         })
         .then(function(response) {
-          // console.log(response.data);
+          console.log(response.data);
           that.comments = response.data;
           that.updateCurrentComments.call(that, that.currentTime);
         });
@@ -92,11 +92,11 @@ export default {
         allComments[i].videoTime <= currentTime &&
         num < 15
       ) {
-        if(allComments[i].videoTime = currentTime){
+        if(allComments[i].videoTime === currentTime){
           currentComments.push(allComments[i]);
           allComments[i].duration = this.randomSpeed();
           num ++;
-        }
+        };
         i++;
       }
 
