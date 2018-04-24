@@ -77,7 +77,7 @@ export default {
       this.currentIndex++;
       newComment.duration = this.randomSpeed();
       this.currentComments.push(newComment);
-      this.updateCurrentComments(currentTime);
+      this.updateCurrentComments(this.currentTime);
       this.loadComment();
     },
 
