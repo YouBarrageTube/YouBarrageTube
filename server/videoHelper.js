@@ -34,12 +34,13 @@ exports.getPopular = function (resultNum, pageToken, fn) {
   });
 };
 
-exports.seachByKeyword = function (keyword, resultNum, fn) {
+exports.seachByKeyword = function (keyword, resultNum, pageToken, fn) {
   const params = {
     'maxResults': resultNum,
     'part': 'snippet',
     'q': keyword,
     'type': 'video',
+    'pageToken': pageToken,
     'key': key
   };
   service.search.list(params, function (err, response) {
@@ -92,12 +93,13 @@ exports.searchById = function (id, fn) {
   });
 };
 
-exports.getRelatedVideoById = function (id, resultNum, fn) {
+exports.getRelatedVideoById = function (id, resultNum, pageToken, fn) {
   const params = {
     'maxResults': resultNum,
     'part': 'snippet',
     'relatedToVideoId': id,
     'type': 'video',
+    'pageToken': pageToken,
     'key': key
   };
   service.search.list(params, function (err, response) {

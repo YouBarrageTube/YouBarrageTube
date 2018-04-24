@@ -46,7 +46,7 @@ module.exports = function (app) {
     }
     else {
       //default fetch 10 results
-      videoHelper.getPopular(10,  req.query.pageToken, function (response) {
+      videoHelper.getPopular(10, req.query.pageToken, function (response) {
         res.send(response);
       });
     }
@@ -61,14 +61,14 @@ module.exports = function (app) {
         res.status(400).send('ResultNum should be in range[1,50]')
       }
       else {
-        videoHelper.seachByKeyword(req.query.keyword, parseInt(req.query.resultNum), function (response) {
+        videoHelper.seachByKeyword(req.query.keyword, parseInt(req.query.resultNum), req.query.pageToken, function (response) {
           res.send(response);
         });
       }
     }
     else {
       //default fetch 10 results
-      videoHelper.seachByKeyword(req.query.keyword, 10, function (response) {
+      videoHelper.seachByKeyword(req.query.keyword, 10, req.query.pageToken, function (response) {
         res.send(response);
       });
     }
@@ -83,14 +83,14 @@ module.exports = function (app) {
         res.status(400).send('ResultNum should be in range[1,50]')
       }
       else {
-        videoHelper.getRelatedVideoById(req.query.videoId, req.query.resultNum, function (response) {
+        videoHelper.getRelatedVideoById(req.query.videoId, req.query.resultNum, req.query.pageToken, function (response) {
           res.send(response);
         });
       }
     }
     else {
       //default fetch 10 results
-      videoHelper.getRelatedVideoById(req.query.videoId, 10, function (response) {
+      videoHelper.getRelatedVideoById(req.query.videoId, 10, req.query.pageToken, function (response) {
         res.send(response);
       });
     }
