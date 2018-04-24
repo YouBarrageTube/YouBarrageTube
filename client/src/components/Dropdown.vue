@@ -5,51 +5,36 @@
         <div class="dropdown-content">
             <div class="row">
                 <div class="dropdown-content-list">
-                    <!-- <subrow>
-                                <div class="column-left">
-                                    Video Title
-                                </div>
-                            </subrow>
-                            <subrow>
-                                <div class="column-right">
-                                    Comments #
-                                </div>
-                            </subrow> -->
-    
-                    <span>
-                                Video Title
-                            </span>
-                    <span style="float: right;">
-                                Comments #
-                            </span>
+                    <span>Video Title</span>
+                    <span style="float: right;">Comments #</span>
                 </div>
             </div>
             <div class="row">
                 <div class="dropdown-content-list" v-for="video in top10" :key="video.id">
                     <router-link :to="`/videos/`+video.id">
-                        <!-- <subrow>
-                                        <div class="column-left">
-                                            {{video.title}}
-                                        </div>
-                                    </subrow>
-                                    <subrow>
-                                        <div class="column-right">
-                                            {{video.num}}
-                                        </div>
-                                    </subrow> -->
-                        <!-- <span>
-                                <img :src="video.thumbnail" alt="video image" width="42" height="42">
-                            </span> -->
                         <span>
-                                        <img :src="video.thumbnail" alt="video image" width="42" height="42" align="middle">
-                                        <span class="text" style="float: none;">
-                                            {{video.title}}
-                                            </span>
-                                            <span class="text">
-                                        {{video.num}}
-                                    </span>
+                            <img :src="video.thumbnail" alt="video image" width="42" height="42" align="middle">
+                            <!-- large screen -->
+                            <span class="title" style="float: none;">
+                                {{video.title}}
+                            </span>
+                            <!-- small screen -->
+                            <div class="small">
+                                <span class="title-small" style="float: none;">
+                                    {{video.title}}
+                                </span>
+                            </div>        
+
+                            <span class="num">
+                                {{video.num}}
+                            </span>
+
+                            <div class="small" style="width: 20%">
+                                <span style="float: right;">
+                                    {{video.num}}
+                                </span>
+                            </div>    
                         </span>
-                        
                     </router-link>
                 </div>
             </div>
@@ -83,9 +68,23 @@
 
 <style scoped>
     /* Dropdown menu */
-    span .text {
+    div .small {
+        display: none;
+        float: left;
+        width: 80%;
+    }
+    
+    span .title {
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    span .title-small {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    
+    span .num {
         margin-top: 5px;
         float: right;
     }
@@ -134,25 +133,15 @@
         text-align: left;
     }
     
-    
-    /* .dropdown-content-list:hover {
-                                        background-color: #ddd;
-                                    } */
-    
     .dropdown:hover .dropdown-content {
         display: block;
     }
-    
     
     /* Create two equal columns that floats next to each other */
     
     .column-left {
         float: left;
         white-space: nowrap;
-        /* border-bottom: 1px solid #e9e9e9;
-                            border-right: 1px solid #e9e9e9; */
-        /* padding: 10px; */
-        /* Should be removed. Only for demonstration */
     }
     
     .column-right {
@@ -163,9 +152,7 @@
         text-align: right;
     }
     
-    
     /* Clear floats after the columns */
-    
     .row:after {
         content: "";
         display: table;
@@ -182,6 +169,10 @@
         border-left: 6px solid green;
         height: 16px;
     }
+
+    @media screen and (max-width: 800px) {
+
+    }
     
     @media screen and (max-width: 600px) {
         .dropdown {
@@ -189,6 +180,29 @@
         }
         .dropdown-content {
             left: 0;
+        }
+        span .title {
+            display: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        span .num {
+            display: none;
+        }
+        span .title-small {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-left: 1px;
+            margin-right: 1px;
+        }
+        div .small {
+            display: block;
+        }
+        img {
+            display: none;
         }
     }
 </style>
