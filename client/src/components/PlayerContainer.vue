@@ -29,7 +29,7 @@
   @media screen and (max-width: 600px) {
         .container {
           width: 100vw;
-          height: 30vw;
+          height: 50vw;
         }
     }
 </style>
