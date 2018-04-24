@@ -74,10 +74,11 @@ export default {
         // .catch(function(error) {
         //   console.log(error);
         // });
-      this.loadComment();
       this.currentIndex++;
       newComment.duration = this.randomSpeed();
       this.currentComments.push(newComment);
+      this.updateCurrentComments(currentTime);
+      this.loadComment();
     },
 
     updateCurrentComments: function(currentTime) {
@@ -91,10 +92,12 @@ export default {
         allComments[i].videoTime <= currentTime &&
         num < 15
       ) {
-        currentComments.push(allComments[i]);
-        allComments[i].duration = this.randomSpeed();
+        if(allComments[i].videoTime = currentTime){
+          currentComments.push(allComments[i]);
+          allComments[i].duration = this.randomSpeed();
+          num ++;
+        }
         i++;
-        num ++;
       }
 
       this.currentIndex = i;
