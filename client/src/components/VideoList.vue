@@ -6,6 +6,10 @@
                 <div class="desc">{{video.title}}</div>
             </router-link>
         </div>
+        <br>
+        <div style="text-align: center;">
+            <h1>{{message}}</h1>
+        </div>
     </div>
 </template>
 
@@ -16,7 +20,10 @@
         name: 'VideoList',
         data: function() {
             return {
-                videos: []
+                videos: [],
+                prevPageToken: "",
+                nextPageToken: "",
+                message: ""
             };
         },
         props: [
@@ -30,22 +37,68 @@
                     .catch(error => console.log(error));
             }
         },
+        methods: {
+            loadMore: function() {
+                this.message = "loading more";
+    
+                // request for more content
+                // var that = this;
+                // $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/videos2.json')
+                //     .done(data => {
+                //         that.videos = that.videos.concat(data);
+                //     })
+
+                if(this.prevPageToken !== "" && this.nextPageToken === ""){
+                    this.message = "Already the last Page";
+                }else{
+                    axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
+                    .catch(error => console.log(error));
+                    this.message = "";
+                }
+            }
+        },
         mounted: function() {
             // For testing
             // $.getJSON('https://raw.githubusercontent.com/ZhenguoChen/Data-Science-Kaggle-/master/videos.json')
             //     .done(data => {
             //         this.videos = data;
             //     })
+    
             if (this.query === undefined || this.query.length == 0) {
-                axios.get('/v1/video/popular?resultNum=21')
-                    .then(response => this.videos = response.data)
+                axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
                     .catch(error => console.log(error));
             } else {
                 console.log('set to search result');
-                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21`)
-                    .then(response => this.videos = response.data)
+                axios.get(`/v1/video/search?keyword=${this.query}&resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
                     .catch(error => console.log(error));
             }
+        },
+        created() {
+            var that = this;
+            window.onscroll = function() {
+                var d = document.documentElement;
+                var offset = d.scrollTop + window.innerHeight;
+                var height = d.offsetHeight;
+    
+                if (offset === height) {
+                    that.loadMore();
+                }
+            };
         }
     }
 </script>
