@@ -29,6 +29,13 @@
             'player-container': PlayerContainer,
             'related-video-list': RelatedVideoList
         },
+        watch: {
+            "$route.params.id": function(newID) {
+                axios.get(`/v1/video/getById?id=${this.$route.params.id}`)
+                .then(response => this.title = response.data.title)
+                .catch(error => console.log(error));
+            }
+        },
         mounted: function() {
             axios.get(`/v1/video/getById?id=${this.$route.params.id}`)
                 .then(response => this.title = response.data.title)
