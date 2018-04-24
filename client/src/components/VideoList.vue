@@ -48,7 +48,7 @@
                 //         that.videos = that.videos.concat(data);
                 //     })
 
-                if(prevPageToken !== "" && nextPageToken === ""){
+                if(this.prevPageToken !== "" && this.nextPageToken === ""){
                     this.message = "Already the last Page";
                 }else{
                     axios.get(`/v1/video/popular?resultNum=21&pageToken=${this.nextPageToken}`)
