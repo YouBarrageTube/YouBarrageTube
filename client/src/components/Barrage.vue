@@ -1,22 +1,31 @@
 <template>
     <div class="container">
-        <p v-for="comment in currentComments" 
+      <transition-group name="word" tag="p" @after-enter = "afterEnter">
+        <p v-for="(comment,index) in currentComments" 
         :class="{pause: !isPlaying}" 
-        :key="comment.id"
+        :key="index"
         :style = "{top: comment.height + '%'}"
+        class = "comment"
         >{{comment.comment}}</p>
+      <transition-group/>
     </div>
 </template>
 
 <script>
 export default {
   name: "Barrage",
-  props: ["isPlaying", "playerWidth", "playerHeight", "currentComments"]
+  props: ["isPlaying", "currentComments"],
+  methods:{
+    afterEnter: function(el){
+      console.log(el);
+    }
+  }
 };
 </script>
 
 <style scoped>
 .container {
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -25,13 +34,22 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-p {
-  display: block;
+
+.word-enter-active{
+    animation: wordmove 10s linear;
+}
+
+.comment {
+  pointer-events: none;
+  user-select: none;
+  font-size: 1.15em;
+  /* z-index: 100; */
+  display: inline-block;
   position: absolute;
+  width:100%;
   color: white;
   left: 100%;
-  width: 100%;
-  animation: wordmove 10s linear;
+  /* animation: wordmove 10s linear; */
 }
 
 @keyframes wordmove {

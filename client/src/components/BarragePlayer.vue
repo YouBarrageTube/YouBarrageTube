@@ -1,23 +1,18 @@
 <template>
-    <div style="width:100%; height:100%; position:relative">
+    <div style="width:100%; height:100%; position:relative" id="player">
         <div class="player-container">
-            <player :isPlaying="isPlaying" :videoId="videoId" :playerWidth="playerWidth" :playerHeight="playerHeight" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
-            <p class="comment" v-for="comment in currentComments" :class="{pause: !isPlaying}" :key="comment.id" :style="{top: comment.height + '%'}">{{comment.comment}}</p>
-            <!-- <barrage :isPlaying="isPlaying"  
-            :playerWidth = "playerWidth"
-            :playerHeight = "playerHeight"
-            :currentComments = "currentComments"/> -->
+            <player :isPlaying="isPlaying" :videoId="videoId" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
+            <div class="comment" 
+            v-for="(comment,index) in currentComments" 
+            :class="[{pause: !isPlaying},comment.duration]" 
+            :key="index" 
+            :style="{top: (index%15+1) * 5.5 + '%'}">{{comment.comment}}</div>
         </div>
         <comments-area :comments="comments" @onNewComment="addComment" />
-        <!-- <player-control/>
-          <p>{{currentTime}}s<p/>
-          <textarea v-model="currentInput" placeholder="add your comment"></textarea>
-          <button @click = "addComment">Submit</button> -->
     </div>
 </template>
 
 <script>
-import Barrage from "./Barrage";
 import Player from "./Player";
 import CommentsArea from "./CommentsArea";
 import axios from "axios";
@@ -28,10 +23,7 @@ export default {
     return {
       isPlaying: false,
       currentTime: 0,
-      currentInput: "",
       submitedInput: "",
-      playerWidth: window.innerWidth * 0.7,
-      playerHeight: window.innerWidth * 0.7 / 16 * 9,
       comments: [],
       currentComments: [],
       currentIndex: 0
@@ -39,7 +31,6 @@ export default {
   },
   props: ["videoId"],
   components: {
-    barrage: Barrage,
     player: Player,
     "comments-area": CommentsArea
   },
@@ -49,28 +40,42 @@ export default {
       if (e === 2) this.isPlaying = false;
     },
 
+    loadComment: function() {
+      var that = this;
+      axios
+        .get("/v1/comments", {
+          params: {
+            videoId: this.videoId
+          }
+        })
+        .then(function(response) {
+          // console.log(response.data);
+          that.comments = response.data;
+          that.updateCurrentComments.call(that, that.currentTime);
+        });
+    },
+
     addComment: function(e) {
-      console.log(e);
       this.submitedInput = e;
       var newComment = {
         videoId: this.videoId,
         comment: this.submitedInput,
         videoTime: this.currentTime
       };
-      console.log(newComment);
       axios
         .post("/v1/comment", {
           videoId: this.videoId,
           comment: this.submitedInput,
           videoTime: this.currentTime
-        })
-        .then(function(response) {
-          console.log(response.data);
-        })
-        .catch(function(error) {
-          console.log(error);
         });
-      newComment.height = Math.floor(Math.random() * 19) * 5;
+        // .then(function(response) {
+        //   console.log(response.data);
+        // })
+        // .catch(function(error) {
+        //   console.log(error);
+        // });
+      this.loadComment();
+      newComment.duration = this.randomSpeed();
       this.currentComments.push(newComment);
     },
 
@@ -84,18 +89,12 @@ export default {
         allComments[i].videoTime <= currentTime
       ) {
         currentComments.push(allComments[i]);
-        allComments[i].height = Math.floor(Math.random() * 16) * 5 + 5;
+        allComments[i].duration = this.randomSpeed();
         i++;
       }
-      //   while(currentComments[0] && (currentTime - currentComments[0].videoTime >= 15) ){
-      //       console.log(currentTime);
-      //       console.log(currentComments[0]);
-      //       currentComments.shift();
-      //   }
 
       this.currentIndex = i;
-
-      console.log(this.currentComments);
+      // console.log(this.currentComments);
     },
 
     reload: function() {
@@ -108,22 +107,18 @@ export default {
         this.currentIndex++;
       }
       this.updateCurrentComments(this.currentTime);
+    },
+
+    randomSpeed: function(){
+        var temp = Math.random() * 10;
+        if (temp < 1.5) return 'slow';
+        if (temp > 8.5) return 'fast';
+        else return 'medium';
     }
   },
   mounted() {
     // Load video comments by video ID
-    var that = this;
-    axios
-      .get("/v1/comments", {
-        params: {
-          videoId: this.videoId
-        }
-      })
-      .then(function(response) {
-        console.log(response.data);
-        that.comments = response.data;
-        that.updateCurrentComments.call(that, that.currentTime);
-      });
+    this.loadComment();
   },
   watch: {
     currentTime: function(newVal, oldVal) {
@@ -141,7 +136,7 @@ export default {
           }
         })
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
           that.comments = response.data;
           that.updateCurrentComments.call(that, that.currentTime);
         });
@@ -153,24 +148,41 @@ export default {
 
 <style scoped>
 .player-container {
-  float:left;
+  float: left;
   position: relative;
   /* display:inline-block; */
-  height:100%;
+  height: 100%;
   width: 70%;
   overflow: hidden;
 }
 
 .comment {
+  font-family: Arial, Helvetica, sans-serif;
   pointer-events: none;
-  font-size: 1.15em;
+  user-select: none;
+  will-change: transform;
+  font-size: 1.25em;
   z-index: 100;
   display: inline-block;
   position: absolute;
   color: white;
   left: 100%;
   width: 100%;
+  text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px,
+    rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;
+  /* animation: wordmove 10s linear; */
+}
+
+.slow {
+  animation: wordmove 12s linear;
+}
+
+.medium {
   animation: wordmove 10s linear;
+}
+
+.fast {
+  animation: wordmove 8s linear;
 }
 
 @keyframes wordmove {
