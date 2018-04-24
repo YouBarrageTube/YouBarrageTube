@@ -17,7 +17,10 @@
         data: function() {
             return {
                 videos: [],
-                id: this.$route.params.id
+                id: this.$route.params.id,
+                prevPageToken: "",
+                nextPageToken: "",
+                message: ""
             };
         },
         props: [
@@ -26,16 +29,56 @@
         watch: {
             '$route.params.id': function(newID) {
                 this.id = this.$route.params.id;
-                axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21`)
-                    .then(response => this.videos = response.data)
+                this.nextPageToken = "";
+                this.prevPageToken = "";
+                axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
                     .catch(error => console.log(error));
     
             }
         },
+        methods: {
+            loadMore: function() {
+                this.message = "loading more";
+
+                if(this.prevPageToken !== "" && this.nextPageToken === ""){
+                    this.message = "";
+                }else{
+                    axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21&pageToken=${this.nextPageToken}`)
+                    .then(response => {
+                        this.videos = this.videos.concat(response.data.videos);
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
+                    .catch(error => console.log(error));
+                    this.message = "";
+                }
+            }
+        },
         mounted: function() {
-            axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21`)
-                .then(response => this.videos = response.data)
+            axios.get(`/v1/video/relatedVideo?videoId=${this.id}&resultNum=21&pageToken=${this.nextPageToken}`)
+                .then(response => {
+                        this.videos = response.data.videos;
+                        this.nextPageToken = response.data.nextPageToken;
+                        this.prevPageToken = response.data.prevPageToken;
+                    })
                 .catch(error => console.log(error));
+        },
+        created() {
+            var that = this;
+            window.onscroll = function() {
+                var d = document.documentElement;
+                var offset = d.scrollTop + window.innerHeight;
+                var height = d.offsetHeight;
+    
+                if (offset === height) {
+                    that.loadMore();
+                }
+            };
         }
     }
 </script>
