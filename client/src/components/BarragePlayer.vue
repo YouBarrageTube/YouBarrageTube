@@ -84,14 +84,17 @@ export default {
       var allComments = this.comments;
       var i = this.currentIndex;
       var currentComments = this.currentComments;
+      let num = 0;
 
       while (
         i < allComments.length &&
-        allComments[i].videoTime <= currentTime
+        allComments[i].videoTime <= currentTime &&
+        num < 15
       ) {
         currentComments.push(allComments[i]);
         allComments[i].duration = this.randomSpeed();
         i++;
+        num ++;
       }
 
       this.currentIndex = i;
