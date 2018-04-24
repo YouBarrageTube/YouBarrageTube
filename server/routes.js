@@ -39,14 +39,14 @@ module.exports = function (app) {
         res.status(400).send('ResultNum should be in range[1,50]')
       }
       else {
-        videoHelper.getPopular(parseInt(req.query.resultNum), function (response) {
+        videoHelper.getPopular(parseInt(req.query.resultNum), req.query.pageToken, function (response) {
           res.send(response);
         });
       }
     }
     else {
       //default fetch 10 results
-      videoHelper.getPopular(10, function (response) {
+      videoHelper.getPopular(10,  req.query.pageToken, function (response) {
         res.send(response);
       });
     }

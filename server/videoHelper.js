@@ -1,12 +1,13 @@
 const {google} = require('googleapis');
 const service = google.youtube('v3');
 const key = 'AIzaSyAVT1EUePVywkA_MA9Lv_MIzmUxavl5jn8';
-exports.getPopular = function (resultNum, fn) {
+exports.getPopular = function (resultNum, pageToken, fn) {
   const params = {
     'maxResults': resultNum,
     'part': 'snippet',
     'chart': 'mostPopular',
     'regionCode': 'US',
+    'pageToken': pageToken,
     'key': key
   };
   service.videos.list(params, function (err, response) {
@@ -15,14 +16,20 @@ exports.getPopular = function (resultNum, fn) {
       return;
     }
     var items = response.data.items;
-    var res = [];
+    var videos = [];
     items.forEach(function (item) {
-      res.push({
+      videos.push({
         'id': item.id,
         'title': item.snippet.title,
         'thumbnail': item.snippet.thumbnails.high.url
       });
     });
+    var res = {};
+    if (response.data.prevPageToken)
+      res['prevPageToken '] = response.data.prevPageToken;
+    if (response.data.nextPageToken)
+      res['nextPageToken '] = response.data.nextPageToken;
+    res['videos'] = videos;
     fn(res);
   });
 };
@@ -41,16 +48,22 @@ exports.seachByKeyword = function (keyword, resultNum, fn) {
       return;
     }
     var items = response.data.items;
-    var res = [];
+    var videos = [];
     items.forEach(function (item) {
       if (item.id.kind != 'youtube#video')
         return;
-      res.push({
+      videos.push({
         'id': item.id.videoId,
         'title': item.snippet.title,
         'thumbnail': item.snippet.thumbnails.high.url
       });
     });
+    var res = {};
+    if (response.data.prevPageToken)
+      res['prevPageToken '] = response.data.prevPageToken;
+    if (response.data.nextPageToken)
+      res['nextPageToken '] = response.data.nextPageToken;
+    res['videos'] = videos;
     fn(res);
   });
 };
@@ -93,15 +106,21 @@ exports.getRelatedVideoById = function (id, resultNum, fn) {
       return;
     }
     var items = response.data.items;
-    var res = [];
+    var videos = [];
     items.forEach(function (item) {
-      res.push({
+      videos.push({
         'id': item.id.videoId,
         'title': item.snippet.title,
         'thumbnail': item.snippet.thumbnails.high.url
       });
 
     });
+    var res = {};
+    if (response.data.prevPageToken)
+      res['prevPageToken '] = response.data.prevPageToken;
+    if (response.data.nextPageToken)
+      res['nextPageToken '] = response.data.nextPageToken;
+    res['videos'] = videos;
     fn(res);
   });
 };
