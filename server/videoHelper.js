@@ -77,7 +77,7 @@ exports.seachByKeyword = function (keyword, resultNum, pageToken, fn) {
   });
 };
 
-exports.searchById = function (id, fn) {
+exports.getById = function (id, fn) {
   const params = {
     'part': 'snippet',
     'id': id,

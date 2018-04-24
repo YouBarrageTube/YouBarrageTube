@@ -52,6 +52,17 @@ module.exports = function (app) {
     }
   });
 
+  app.get(apiVersion + videoApiPath + '/getById', function (req, res) {
+    if(!req.query.id){
+      res.status(400).send('Required parameter: id');
+    }
+    else{
+      videoHelper.getById(req.query.id, function (response) {
+        res.send(response);
+      })
+    }
+  });
+
   app.get(apiVersion + videoApiPath + '/search', function (req, res) {
     if (!req.query.keyword) {
       res.status(400).send('Required parameter: keyword');
