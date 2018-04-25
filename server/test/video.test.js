@@ -5,10 +5,9 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-var baseUrl = 'http://localhost:3000/v1/video';
-var testVideoId = 'hwjdXBxeWsc';
-
-describe('Video APIs', function () {
+const baseUrl = 'http://localhost:3000/v1/video';
+const testVideoId = 'hwjdXBxeWsc';
+describe('Video APIs', function (done) {
 
   /**
    * /popular
@@ -220,4 +219,5 @@ describe('Video APIs', function () {
         done();
       });
   });
+
 });

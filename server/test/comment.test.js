@@ -5,9 +5,10 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-var baseUrl = 'http://localhost:3000/v1';
-var testVideoId = '123';
+const baseUrl = 'http://localhost:3000/v1';
+const testVideoId = '123';
 describe('Comment APIs', function (done) {
+
   /*
   Get a 200 if with videoId
    */
@@ -87,6 +88,5 @@ describe('Comment APIs', function (done) {
         done();
       });
   });
-
 
 });

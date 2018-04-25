@@ -1,3 +1,4 @@
+process.title = 'ybt_s';
 const express = require('express');
 const bodyParser = require('body-parser');
 const dbhelper = require('./dbHelper');
@@ -13,6 +14,9 @@ dbhelper.init();
 require('./routes')(app);
 
 
-app.listen(process.env.PORT || 3000, function () {
+
+let server = app.listen(process.env.PORT || 3000, function () {
   console.log('Express server is up on port 3000');
 });
+
+exports.server = server;

@@ -4,7 +4,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "stop": "killall ybt_s",
+    "pretest": "node app.js &",
+    "test": "mocha",
+    "posttest": "killall ybt_s"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +19,7 @@
     "github-webhook-handler": "^0.7.1",
     "googleapis": "^28.1.0",
     "http": "0.0.0",
+    "mocha": "^5.1.1",
     "mongodb": "^3.0.4"
   },
   "devDependencies": {},
