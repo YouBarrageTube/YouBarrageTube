@@ -22,7 +22,7 @@ describe('Video APIs', function () {
       .get('/popular')
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -35,7 +35,7 @@ describe('Video APIs', function () {
       .query({resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
@@ -79,7 +79,7 @@ describe('Video APIs', function () {
       .query({keyword: 'BMW'})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -92,7 +92,7 @@ describe('Video APIs', function () {
       .query({keyword: 'BMW', resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
@@ -149,7 +149,7 @@ describe('Video APIs', function () {
       .query({videoId: testVideoId})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -162,7 +162,7 @@ describe('Video APIs', function () {
       .query({videoId: testVideoId, resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
