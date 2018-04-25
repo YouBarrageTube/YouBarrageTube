@@ -1,0 +1,11 @@
+language: node_js
+nvm:
+  - 8.10.0
+before_install:
+  - cd client
+install:
+  - npm install
+before_script:
+  - cd client
+script:
+  - npm run build
