@@ -1,9 +1,9 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var dbhelper = require('./dbHelper');
+const express = require('express');
+const bodyParser = require('body-parser');
+const dbhelper = require('./dbHelper');
 
 // Create our app
-var app = express();
+let app = express();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());

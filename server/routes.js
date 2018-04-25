@@ -1,6 +1,6 @@
-var apiVersion = '/v1';
-var dbHelper = require('./dbHelper');
-var videoHelper = require('./videoHelper');
+const apiVersion = '/v1';
+const dbHelper = require('./dbHelper');
+const videoHelper = require('./videoHelper');
 module.exports = function (app) {
 
   /**
@@ -31,7 +31,7 @@ module.exports = function (app) {
   /**
    Video endpoints
    */
-  var videoApiPath = '/video';
+  let videoApiPath = '/video';
 
   app.get(apiVersion + videoApiPath + '/popular', function (req, res) {
     if (req.query.resultNum != null) {
