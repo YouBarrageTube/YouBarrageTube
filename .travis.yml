@@ -9,6 +9,7 @@ script:
   - npm run build
 after_script:
   - cd ../server/
+  - npm install
   - npm test
 COVERALLS_REPO_TOKEN:
   - 3Ku4mYpoX9gGPkcshFwFKSbJicPbW2y4v
