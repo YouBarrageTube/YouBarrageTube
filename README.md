@@ -5,7 +5,7 @@
 
 YouBarrageTube is a website that users can add and view commentary subtitles on YouTube videos.
 
-[_youbarragetube.com_](http://youbarragetube.com)
+[Website](http://youbarragetube.com) | [Chrome Extension](https://chrome.google.com/webstore/detail/youbarragetube/nfolmkdajkapgfohdagpadfcdfhijhne?hl=en)
 
 
 
