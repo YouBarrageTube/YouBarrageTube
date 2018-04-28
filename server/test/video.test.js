@@ -5,10 +5,9 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-var baseUrl = 'http://localhost:3000/v1/video';
-var testVideoId = 'hwjdXBxeWsc';
-
-describe('Video APIs', function () {
+const baseUrl = 'http://localhost:3000/v1/video';
+const testVideoId = 'hwjdXBxeWsc';
+describe('Video APIs', function (done) {
 
   /**
    * /popular
@@ -22,7 +21,7 @@ describe('Video APIs', function () {
       .get('/popular')
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -35,7 +34,7 @@ describe('Video APIs', function () {
       .query({resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
@@ -79,7 +78,7 @@ describe('Video APIs', function () {
       .query({keyword: 'BMW'})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -92,7 +91,7 @@ describe('Video APIs', function () {
       .query({keyword: 'BMW', resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
@@ -149,7 +148,7 @@ describe('Video APIs', function () {
       .query({videoId: testVideoId})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(10);
+        expect(res.body.videos.length).to.equal(10);
         done();
       });
   });
@@ -162,7 +161,7 @@ describe('Video APIs', function () {
       .query({videoId: testVideoId, resultNum: 20})
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(res.body.length).to.equal(20);
+        expect(res.body.videos.length).to.equal(20);
         done();
       });
   });
@@ -220,4 +219,5 @@ describe('Video APIs', function () {
         done();
       });
   });
+
 });
