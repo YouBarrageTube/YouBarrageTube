@@ -21,7 +21,7 @@ exports.insertComment = function (videoId, comment, videoTime) {
     if (err) throw err;
     const dbo = db.db(dbName);
     const query = {_id: videoId.toString()};
-    const newvalues = {$push: {comments: {comment: comment, videoTime: videoTime}}};
+    const newvalues = {$push: {comments: {comment: comment, videoTime: parseInt(videoTime)}}};
     const options = {upsert: true};
     dbo.collection(commentCollection).updateOne(query, newvalues, options, function (err, res) {
       if (err) throw err;
