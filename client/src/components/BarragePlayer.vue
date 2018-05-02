@@ -1,14 +1,22 @@
 <template>
     <div style="width:100%; height:100%; position:relative" id="player">
-        <div class="player-container">
+        <div class="player-input">
+          <div class="player-container">
             <player :isPlaying="isPlaying" :videoId="videoId" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
             <div class="comment" 
             v-for="(comment,index) in currentComments" 
+            v-show="isShow"
             :class="[{pause: !isPlaying},comment.duration]" 
             :key="index" 
             :style="{top: (index%15+1) * 5.5 + '%'}">{{comment.comment}}</div>
+          </div>
+          <div class="danmu-control">
+            <input v-model="newComment" type="text" placeholder="Type your comment..." @keyup.enter="addComment">
+            <button @click = "addComment">Submit</button>
+            <button @click = "disableDanmu">{{buttonValue}}</button>
+          </div>
         </div>
-        <comments-area :comments="comments" @onNewComment="addComment" />
+        <comments-area :comments="comments"/>
     </div>
 </template>
 
@@ -26,7 +34,9 @@ export default {
       submitedInput: "",
       comments: [],
       currentComments: [],
-      currentIndex: 0
+      currentIndex: 0,
+      isShow: true,
+      newComment:'',
     };
   },
   props: ["videoId"],
@@ -55,8 +65,9 @@ export default {
         });
     },
 
-    addComment: function(e) {
-      this.submitedInput = e;
+    addComment: function() {
+      this.submitedInput = this.newComment;
+      this.newComment = '';
       var newComment = {
         videoId: this.videoId,
         comment: this.submitedInput,
@@ -120,6 +131,11 @@ export default {
         if (temp < 1.5) return 'slow';
         if (temp > 8.5) return 'fast';
         else return 'medium';
+    },
+
+    disableDanmu: function(){
+      if(!this.isShow) this.reload();
+      this.isShow = !this.isShow;
     }
   },
   mounted() {
@@ -147,18 +163,57 @@ export default {
           that.updateCurrentComments.call(that, that.currentTime);
         });
     }
+  },
+  computed: {
+    buttonValue:function(){
+      if(!this.isShow) return 'Enable';
+      else return 'Disable';
+    }
   }
 };
 </script>
 
 
 <style scoped>
+button{
+  border:1px solid #e9e9e9;
+  border-radius: 5px;
+  width:9%;
+}
+
+button:hover{
+  background-color: #e9e9e9;
+}
+
+button:active{
+  outline:none;
+}
+
+button:focus{
+  outline:none;
+}
+
+.danmu-control{
+  display:inline-block;
+  height:8%;
+  width:100%;
+}
+
+.player-input{
+  /* display:inline-block; */
+  float:left;
+  width:70%; 
+  height:100%; 
+  position:relative;
+  border-right: 1px solid #e9e9e9;
+}
+
 .player-container {
   float: left;
   position: relative;
   /* display:inline-block; */
-  height: 100%;
-  width: 70%;
+  height: 92%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -172,7 +227,7 @@ export default {
   display: inline-block;
   position: absolute;
   color: white;
-  left: 100%;
+  left: 105%;
   width: 100%;
   text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px,
     rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;
@@ -193,7 +248,7 @@ export default {
 
 @keyframes wordmove {
   from {
-    left: 100%;
+    left: 105%;
   }
   to {
     left: -100%;
@@ -202,5 +257,27 @@ export default {
 
 .pause {
   animation-play-state: paused;
+}
+
+input{
+  box-sizing: border-box;
+  display:inline-block;
+  font-size: 100%;
+  margin: 0;
+  margin-left:1%;
+  padding: 0;
+  height:95%;
+  width: 78%;
+  border: none;
+}
+
+input:focus{
+  border:none;
+  outline: none;
+}
+
+input::-webkit-input-placeholder{
+  color:#99a2aa;
+  font-size: 0.8em;
 }
 </style>
