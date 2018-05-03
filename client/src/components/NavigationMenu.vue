@@ -9,7 +9,7 @@
         <router-link to="/about">
             About Us
         </router-link>
-        <router-link to="extension">
+        <router-link to="/extension">
             Extension
         </router-link>
         <!-- top 10 video dropdown menu -->
