@@ -1,24 +1,19 @@
 <template>
     <div class="container">
-      <transition-group name="word" tag="p" @after-enter = "afterEnter">
-        <p v-for="(comment,index) in currentComments" 
-        :class="{pause: !isPlaying}" 
-        :key="index"
-        :style = "{top: comment.height + '%'}"
-        class = "comment"
-        >{{comment.comment}}</p>
-      <transition-group/>
     </div>
 </template>
 
 <script>
 export default {
   name: "Barrage",
-  props: ["isPlaying", "currentComments"],
+  props: ["isPlaying", "comments"],
   methods:{
     afterEnter: function(el){
       console.log(el);
     }
+  },
+  mounted(){
+    console.log(this);
   }
 };
 </script>
@@ -48,13 +43,13 @@ export default {
   position: absolute;
   width:100%;
   color: white;
-  left: 100%;
+  left: 105%;
   /* animation: wordmove 10s linear; */
 }
 
 @keyframes wordmove {
   from {
-    left: 100%;
+    left: 105%;
   }
   to {
     left: -100%;

@@ -26,7 +26,7 @@ export default {
         "onTimeUpdate",
         Math.floor(that.player.player.getCurrentTime())
       );
-    }, 500);
+    }, 1000);
   },
   beforeDestroy(){
       this.player.player.destroy();

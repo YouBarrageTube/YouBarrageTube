@@ -4,7 +4,12 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "stop": "killall ybt_s",
+    "pretest": "node app.js & \n sleep 1",
+    "test": "cd test \n istanbul cover ../node_modules/mocha/bin/_mocha -- ./* --report lcovonly -- -R spec && cat ./coverage/lcov.info | ../node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "cover": "a",
+    "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "posttest": "killall ybt_s"
   },
   "author": "",
   "license": "ISC",
@@ -12,10 +17,14 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "coveralls": "^3.0.0",
     "express": "^4.16.3",
     "github-webhook-handler": "^0.7.1",
     "googleapis": "^28.1.0",
     "http": "0.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.1",
+    "mocha-lcov-reporter": "^1.3.0",
     "mongodb": "^3.0.4"
   },
   "devDependencies": {},

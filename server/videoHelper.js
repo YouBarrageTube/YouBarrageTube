@@ -15,8 +15,8 @@ exports.getPopular = function (resultNum, pageToken, fn) {
       fn('The API returned an error: ' + err);
       return;
     }
-    var items = response.data.items;
-    var videos = [];
+    const items = response.data.items;
+    let videos = [];
     items.forEach(function (item) {
       videos.push({
         'id': item.id,
@@ -24,7 +24,7 @@ exports.getPopular = function (resultNum, pageToken, fn) {
         'thumbnail': item.snippet.thumbnails.high.url
       });
     });
-    var res = {};
+    let res = {};
     if (response.data.prevPageToken)
       res['prevPageToken'] = response.data.prevPageToken;
     else
@@ -52,8 +52,8 @@ exports.seachByKeyword = function (keyword, resultNum, pageToken, fn) {
       fn('The API returned an error: ' + err);
       return;
     }
-    var items = response.data.items;
-    var videos = [];
+    const items = response.data.items;
+    let videos = [];
     items.forEach(function (item) {
       if (item.id.kind != 'youtube#video')
         return;
@@ -63,7 +63,7 @@ exports.seachByKeyword = function (keyword, resultNum, pageToken, fn) {
         'thumbnail': item.snippet.thumbnails.high.url
       });
     });
-    var res = {};
+    let res = {};
     if (response.data.prevPageToken)
       res['prevPageToken'] = response.data.prevPageToken;
     else
@@ -88,8 +88,8 @@ exports.getById = function (id, fn) {
       fn('The API returned an error: ' + err);
       return;
     }
-    var items = response.data.items;
-    var res = {};
+    const items = response.data.items;
+    let res = {};
     items.forEach(function (item) {
       res = {
         'id': id,
@@ -115,8 +115,8 @@ exports.getRelatedVideoById = function (id, resultNum, pageToken, fn) {
       fn('The API returned an error: ' + err);
       return;
     }
-    var items = response.data.items;
-    var videos = [];
+    const items = response.data.items;
+    let videos = [];
     items.forEach(function (item) {
       videos.push({
         'id': item.id.videoId,
@@ -125,7 +125,7 @@ exports.getRelatedVideoById = function (id, resultNum, pageToken, fn) {
       });
 
     });
-    var res = {};
+    let res = {};
     if (response.data.prevPageToken)
       res['prevPageToken'] = response.data.prevPageToken;
     else

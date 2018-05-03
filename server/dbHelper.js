@@ -1,16 +1,16 @@
 const MongoClient = require('mongodb').MongoClient;
 const videlHelper = require('./videoHelper');
-var url = "mongodb://localhost:27017/";
-var dbName = 'YouBarrageTube';
-var commentCollection = "comments";
-var commentNumCollection = "comments_num";
-var top10MostComments = [];
+const url = "mongodb://localhost:27017/";
+const dbName = 'YouBarrageTube';
+const commentCollection = "comments";
+const commentNumCollection = "comments_num";
+let top10MostComments = [];
 
 exports.init = function () {
 
   MongoClient.connect(url + dbName, function (err, db) {
     if (err) throw err;
-    console.log('Database Linked.');
+    console.log('Database Linked');
     db.close();
   });
   initTop10MostComments();
@@ -19,10 +19,10 @@ exports.init = function () {
 exports.insertComment = function (videoId, comment, videoTime) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(dbName);
-    var query = {_id: videoId.toString()};
-    var newvalues = {$push: {comments: {comment: comment, videoTime: videoTime}}};
-    var options = {upsert: true};
+    const dbo = db.db(dbName);
+    const query = {_id: videoId.toString()};
+    const newvalues = {$push: {comments: {comment: comment, videoTime: parseInt(videoTime)}}};
+    const options = {upsert: true};
     dbo.collection(commentCollection).updateOne(query, newvalues, options, function (err, res) {
       if (err) throw err;
       db.close();
@@ -34,13 +34,14 @@ exports.insertComment = function (videoId, comment, videoTime) {
 exports.getComments = function (videoId, fn) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(dbName);
-    var query = {_id: videoId.toString()};
-    var options = {'_id': false};
+    const dbo = db.db(dbName);
+    const query = {_id: videoId.toString()};
+    const options = {'_id': false};
+    let comments;
     dbo.collection(commentCollection).find(query).project(options).toArray(function (err, result) {
       if (err) throw err;
       if (result.length) {
-        var comments = result[0].comments;
+        comments = result[0].comments;
         comments.sort(function (a, b) {
           return parseFloat(a.videoTime) - parseFloat(b.videoTime);
         });
@@ -55,16 +56,16 @@ exports.getComments = function (videoId, fn) {
 function addOneRecord(videoId) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(dbName);
-    var query = {_id: videoId.toString()};
+    const dbo = db.db(dbName);
+    const query = {_id: videoId.toString()};
     dbo.collection(commentNumCollection).findOne(query, function (err, result) {
       if (err) throw err;
       // if record exists
       if (result) {
-        var currentNum = parseInt(result.num);
+        const currentNum = parseInt(result.num);
         //plus one to current comment num
         result.num = currentNum + 1;
-        var newValues = {$set: {num: currentNum + 1}};
+        const newValues = {$set: {num: currentNum + 1}};
         dbo.collection(commentNumCollection).update(query, newValues, function (err, res) {
           if (err) throw err;
           db.close();
@@ -75,7 +76,7 @@ function addOneRecord(videoId) {
       else {
         videlHelper.getById(videoId, function (response) {
           // add new record with one comment num
-          var newValues = response;
+          let newValues = response;
           newValues._id = newValues.id;
           delete newValues.id;
           newValues.num = 1;
@@ -100,9 +101,9 @@ exports.getTop10MostComments = function (fn) {
 function initTop10MostComments() {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(dbName);
-    var query = {};
-    var options = {
+    const dbo = db.db(dbName);
+    const query = {};
+    const options = {
       "limit": 10,
       "sort": "[['num','desc'], ['title','asc']]"
     };
@@ -125,7 +126,7 @@ function updateTop10MostComments(newNum, newValues) {
   newValues.id = newValues._id;
   delete newValues._id;
   //if video already exists in top 10
-  for (var i = 0; i < top10MostComments.length; i++) {
+  for (let i = 0; i < top10MostComments.length; i++) {
     if (top10MostComments[i].id == newValues.id) {
       top10MostComments[i].num = newNum;
       top10MostComments.sort(function (a, b) {
