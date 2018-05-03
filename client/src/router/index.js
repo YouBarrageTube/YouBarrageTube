@@ -35,6 +35,10 @@ export default new Router({
       name: 'SearchPage',
       component: SearchPage,
       props: (route) => ({query: route.query.keyword})
-    }
+    },
+    {
+      path: '/extension',
+      beforeEnter() { location.href = 'https://chrome.google.com/webstore/detail/youbarragetube/nfolmkdajkapgfohdagpadfcdfhijhne?hl=en' }
+  }
   ]
 })
