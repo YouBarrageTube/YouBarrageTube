@@ -3,12 +3,13 @@
         <div class="player-input">
           <div class="player-container">
             <player :isPlaying="isPlaying" :videoId="videoId" @onTimeUpdate="currentTime = $event" @onPlayerStateChange="play" @onReloadComments="reload" />
-            <div class="comment" 
-            v-for="(comment,index) in currentComments" 
-            v-show="isShow"
-            :class="[{pause: !isPlaying},comment.duration]" 
-            :key="index" 
-            :style="{top: (index%15+1) * 5.5 + '%'}">{{comment.comment}}</div>
+            <div v-show="isShow">
+              <div class="comment" 
+              v-for="(comment,index) in currentComments" 
+              :class="[{pause: !isPlaying},comment.duration]" 
+              :key="index" 
+              :style="{top: (index%15+1) * 5.5 + '%'}">{{comment.comment}}</div>
+            </div>
           </div>
           <div class="danmu-control">
             <input v-model="newComment" type="text" placeholder="Type your comment..." @keyup.enter="addComment">
